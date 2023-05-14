@@ -57,7 +57,7 @@ const PersonView = () => {
     }
 
     return (
-        <div style={{display:'flex'}} className="background">
+        <div style={{display:'flex',flex:1,width:'100%'}} >
             <div
                 style={{
                     width: 150,
@@ -86,7 +86,13 @@ const PersonView = () => {
                     onClick={handleMenuClick}
                 />
             </div>
-            <div style={{flex:1, alignItems:"center"}}>
+            <div
+                style={{flex:1,
+                    alignItems:"center",
+                    width:"100%",
+                    display:"flex",
+                    flexDirection:"column" }}
+            >
                 {content}
             </div>
         </div>

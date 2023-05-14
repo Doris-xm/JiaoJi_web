@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommentOutlined, EllipsisOutlined,HeartOutlined} from "@ant-design/icons";
 import {Avatar, Card, Skeleton} from "antd";
 import Meta from "antd/es/card/Meta";
-import '../css/backgroud.css'
+import '../../css/backgroud.css'
 
 /**
  * 朋友圈卡片

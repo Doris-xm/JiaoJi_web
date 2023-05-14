@@ -23,3 +23,12 @@ export const login = async (data) => {
   // localStorage.setItem("user", JSON.stringify(data.data));
   // history.push("/HomeView");
 };
+
+export const getUser = () => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      return JSON.parse(user);
+    } else {
+      return null;
+    }
+};

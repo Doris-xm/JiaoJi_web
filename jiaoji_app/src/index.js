@@ -24,7 +24,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import ActivityDetail from "./View/DetailView";
 import SignUp from "./View/SignUpView";
-import HomeView from "./View/HomeView";
+import HomeView from "./View/User/HomeView";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
