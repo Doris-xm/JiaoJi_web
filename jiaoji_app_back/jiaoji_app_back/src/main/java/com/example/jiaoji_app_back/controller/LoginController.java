@@ -28,7 +28,6 @@ public class LoginController {
 
     @PostMapping
     @RequestMapping("/login")
-//    @CrossOrigin(origins = "http://localhost:3000") //允许跨域
     @ResponseStatus(HttpStatus.OK)
     //public Msg login(@RequestParam(Constant.USERNAME) String username, @RequestParam(Constant.PASSWORD) String password, @RequestParam(Constant.REMEMBER_ME) Boolean remember){
     public Msg login(@RequestBody Map<String, String> params){

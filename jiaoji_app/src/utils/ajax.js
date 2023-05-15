@@ -52,7 +52,8 @@ let postRequest = (url, json, callback) => {
       return response.json();
     })
     .then((data) => {
-      return callback(data);
+      if(callback !== null)
+          return callback(data);
     })
     .catch((error) => {
       console.log(error);
