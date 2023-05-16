@@ -6,26 +6,30 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.springframework.data.annotation.Transient;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "userAuth")
+@Data
+@Table(name = "userauth")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "userId")
 public class UserAuth {
 
     @Id
+    @Column(name = "user_id")
     private Integer userId;
 
-    @Transient
+    @Column(name = "username")
     private String username;
 
-
+    @Column(name = "password")
     private String password;
 
+    @Column(name="user_type")
     private Integer userType;
 
     public Integer getUserId() {

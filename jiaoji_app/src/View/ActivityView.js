@@ -1,5 +1,5 @@
 import React from "react";
-import ActivityList from "../Component/ActivityList";
+import ActivityList from "../Component/Activity/ActivityList";
 import Search from "antd/es/input/Search";
 
 const ActivityView: React.FC = () => {

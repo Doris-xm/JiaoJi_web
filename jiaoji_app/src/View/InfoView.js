@@ -1,5 +1,5 @@
 import React from "react";
-import MyUserInfo from "../Component/MyUserInfo";
+import MyUserInfo from "../Component/UserInfo/MyUserInfo";
 import DateReminder from "../Component/calendar";
 import Notification from "../Component/notification";
 import {Content} from "antd/es/layout/layout";

@@ -64,12 +64,13 @@ public class InterceptorConfig implements WebMvcConfigurer {
 //                .allowedHeaders("*")
 //                .allowCredentials(true)
 //                .maxAge(3600);
+        System.out.println("跨域配置");
         registry.addMapping("http://localhost:3000/**")
                 //是否发送Cookie
                 .allowCredentials(true)
                 //设置放行哪些原始域   SpringBoot2.4.4下低版本使用.allowedOrigins("*")
-//                .allowedOriginPatterns("*")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOriginPatterns("*")
+//                .allowedOrigins("http://localhost:3000")
                 //放行哪些请求方式
                 .allowedMethods(new String[]{"GET", "POST", "PUT", "DELETE"})
                 //.allowedMethods("*") //或者放行全部

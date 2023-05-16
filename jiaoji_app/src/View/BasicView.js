@@ -25,6 +25,11 @@ const BasicView = () => {
             <AdminHomeView/>
         </div>
     )
+    // return (
+    //     <div>
+    //         <HomeView/>
+    //     </div>
+    // )
 }
 
 export default BasicView;

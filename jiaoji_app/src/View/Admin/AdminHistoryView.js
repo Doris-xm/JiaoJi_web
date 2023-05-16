@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Space, List } from "antd";
 import { Link } from "react-router-dom";
-import activities from "../../Component/Activities";
+import activities from "../../Component/Activity/Activities";
 import AdminActivity from "../../Component/Admin/AdminActivity";
 
 /**

@@ -34,6 +34,7 @@ public class LoginController {
         String username = params.get(Constant.USERNAME);
         String password = params.get(Constant.PASSWORD);
         UserAuth auth = userService.checkUser(username, password);
+
         if(auth != null){
 
             JSONObject obj = new JSONObject();
@@ -43,6 +44,7 @@ public class LoginController {
             SessionUtil.setSession(obj);
 
             JSONObject data = JSONObject.fromObject(auth);
+
             data.remove(Constant.PASSWORD);
 
             return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);

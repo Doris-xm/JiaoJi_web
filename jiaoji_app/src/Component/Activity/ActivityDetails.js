@@ -1,6 +1,6 @@
 import React from "react";
 import { Card as AntCard } from "antd";
-import "../css/ActivityDetail.css";
+import "../../css/ActivityDetail.css";
 
 const ActivityDetails = ({ activity }) => {
     return (

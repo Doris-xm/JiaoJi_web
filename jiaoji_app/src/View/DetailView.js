@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
-import ActivityDetails from "../Component/ActivityDetails";
-import activities from "../Component/Activities";
+import ActivityDetails from "../Component/Activity/ActivityDetails";
+import activities from "../Component/Activity/Activities";
 
 const ActivityDetail = ({ ActivityId }) => {
     const activity = activities[ActivityId - 1];
