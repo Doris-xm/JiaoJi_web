@@ -1,6 +1,7 @@
 package com.example.jiaoji_app_back.repository;
 
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivitySignup;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -58,6 +59,7 @@ public class ActivityDetailsRepositoryImpl implements ActivityDetailsRepository 
         });
 
     }
+
 
     @Override
     public List<ActivityDetails> findPassedActivity() {

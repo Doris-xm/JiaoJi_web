@@ -7,7 +7,7 @@ import {getActivityByID} from "../../Services/ActivitySevice";
 const ActivityDetails = () => {
     const {activityId} = useParams();
     // const activityId = 1;
-    const navigate = useNavigate();// 获取navigate对象
+
     const [activity, setActivity] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
@@ -23,9 +23,6 @@ const ActivityDetails = () => {
         return <div>加载中...</div>;
     }
     console.log("activity",activity);
-    const handleGoBack = () => {
-        navigate(-1); // 调用navigate返回上一页
-    };
     return (
         <div className="card-container">
             <AntCard className="activity-card ant-card-hoverable">

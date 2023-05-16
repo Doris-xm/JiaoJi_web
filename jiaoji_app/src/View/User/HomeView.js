@@ -15,6 +15,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { getUserByUserId } from "../../Services/UserService";
 import { Button, Avatar } from "antd";
 import ActivityDetail from "../DetailView";
+import MyActivity from "./MyActivity";
 const { Header, Content } = Layout;
 const { Search } = Input;
 
@@ -24,12 +25,6 @@ const items = [
         key: "home",
         path: "/"
         // component: ActivityView,
-    },
-    {
-        label: "个人中心",
-        key: "person",
-        path: "/info"
-        // component: PersonView,
     },
     {
         label: "朋友圈",
@@ -42,6 +37,17 @@ const items = [
         key: "chat",
         path: "/chat"
         // component: ChatView,
+    },
+    {
+        label: "我的活动",
+        key: "myactivity",
+        path: "/myactivity"
+    },
+    {
+        label: "个人中心",
+        key: "person",
+        path: "/info"
+        // component: PersonView,
     }
 ];
 
@@ -111,7 +117,7 @@ const HomeView = () => {
                             selectedKeys={[selectedKey]}
                             onClick={handleMenuClick}
                             defaultSelectedKeys={["home"]}
-                            style={{ lineHeight: "64px" ,backgroundColor: 'rgb(255,255,255,0)'}}
+                            style={{ lineHeight: "64px" ,lineWidth:"300px",backgroundColor: 'rgb(255,255,255,0)'}}
                         >
                             {/*{items.map((item) => (*/}
                             {/*    <Menu.Item key={item.key}>{item.label}</Menu.Item>*/}
@@ -119,14 +125,17 @@ const HomeView = () => {
                             <Menu.Item key="home">
                                 <Link to="/">活动大厅</Link>
                             </Menu.Item>
-                            <Menu.Item key="person">
-                                <Link to="/info">个人中心</Link>
+                            <Menu.Item key="my_activities">
+                                <Link to="/myactivity">我的活动</Link>
                             </Menu.Item>
                             <Menu.Item key="moment">
                                 <Link to="/moment">朋友圈</Link>
                             </Menu.Item>
-                            <Menu.Item key="chat">
-                                <Link to="/chat">聊天室</Link>
+                            {/*<Menu.Item key="chat">*/}
+                            {/*    <Link to="/chat">聊天室</Link>*/}
+                            {/*</Menu.Item>*/}
+                            <Menu.Item key="person">
+                                <Link to="/info">个人中心</Link>
                             </Menu.Item>
                         </Menu>
                     </div>
@@ -161,6 +170,7 @@ const HomeView = () => {
                     <Route path="/info" element={<InfoView />} />
                     <Route path="/moment" element={<MomentsView />} />
                     <Route path="/activity/:activityId" element={<ActivityDetail />} />
+                    <Route path="/myactivity" element={<MyActivity />} />
                 </Routes>
 
                 {/*<Content className="background">*/}

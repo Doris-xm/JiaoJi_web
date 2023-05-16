@@ -1,12 +1,14 @@
 package com.example.jiaoji_app_back.service;
 
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivityResponse;
 import com.example.jiaoji_app_back.utils.msgutils.Message;
 
 import java.util.List;
 
 public interface ActivityService {
     List<ActivityDetails> getActivityList();
+    List<ActivityResponse> getMyActivityList(int userId);
 
     Message getPassedActivity();
 

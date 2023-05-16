@@ -1,11 +1,13 @@
 package com.example.jiaoji_app_back.dao;
 
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivityResponse;
 
 import java.util.List;
 
 public interface ActivityDao {
     List<ActivityDetails> getAllActivities();
+    List<ActivityResponse> getMyActivities(int userId);
 
     List<ActivityDetails> getPassedActivity();
 

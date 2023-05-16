@@ -1,10 +1,13 @@
 /*author: qyl*/
 package com.example.jiaoji_app_back.controller;
 
+import com.example.jiaoji_app_back.constant.Constant;
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivityResponse;
 import com.example.jiaoji_app_back.utils.msgutils.Message;
 import com.example.jiaoji_app_back.repository.ActivityDetailsRepository;
 import com.example.jiaoji_app_back.service.ActivityService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,13 @@ public class ActivityDetailsController {
     public List<ActivityDetails> getList(){
         return activityService.getActivityList();
     }
+
+    @RequestMapping("/my_activities")
+    public List<ActivityResponse> getMyActivities(@RequestParam("userId") int userId) {
+        return activityService.getMyActivityList(userId);
+    }
+
+
     @GetMapping("/getPassedActivities")
     public Message getPassedList2(){
         return activityService.getPassedActivity();

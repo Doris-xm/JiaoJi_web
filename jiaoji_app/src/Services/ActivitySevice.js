@@ -15,6 +15,10 @@
 //             callback(null, error);
 //         });
 // }
+/*
+* @Brief: 获取单个活动详情
+* @Param: id 活动id
+* */
 export const getActivityByID = async (id) => {
     let activity = null;
     console.log("id",id);
@@ -59,7 +63,9 @@ export function changeStatus(id, status, comment, callback) {
             callback(null, error);
         });
 }
-
+/*
+* @Brief: 获取所有活动
+* */
 export const getAllActivities = async () => {
     let activities = null;
     try {
@@ -70,6 +76,28 @@ export const getAllActivities = async () => {
             },
         });
         activities = await response.json();
+    } catch (error) {
+        console.error("Error fetching activity:", error);
+    }
+    return activities;
+}
+
+/*
+* @Brief: 获取我报名的活动
+* @Param: userId 用户id
+* */
+export const getMyActivities = async (userId) => {
+    let activities = null;
+    console.log("userId",userId);
+    try {
+        const response = await fetch(`/api/my_activities?userId=${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        activities = await response.json();
+        console.log("My activities", activities);
     } catch (error) {
         console.error("Error fetching activity:", error);
     }

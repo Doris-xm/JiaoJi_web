@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import {getAllActivities} from "../../Services/ActivitySevice";
 
 const default_url = "https://th.bing.com/th/id/R.785580b0aa9cce1c7e016db5ee2e078e?rik=ebpuQj03uKxGQg&riu=http%3a%2f%2fphotos.tuchong.com%2f255820%2ff%2f2852945.jpg&ehk=8sZ0LLnnaIXhdwT1M5Zk2xrfIMFcE%2bV45Nc1839Gj7Y%3d&risl=&pid=ImgRaw&r=0";
+/*
+* @Description: 改成了class，因为用function的时候，在activities没有fetch到的时候页面报错
+* */
 class ActivityList  extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +22,7 @@ class ActivityList  extends React.Component {
     render() {
         return(
             <List
+                style={{margin: "20px"}}
                 grid={{gutter: 16, column: 4}}
                 dataSource={this.state.activities}
                 pagination={{

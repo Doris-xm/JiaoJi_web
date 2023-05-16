@@ -2,6 +2,7 @@ package com.example.jiaoji_app_back.serviceimpl;
 
 import com.example.jiaoji_app_back.dao.ActivityDao;
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivityResponse;
 import com.example.jiaoji_app_back.utils.msgutils.Message;
 import com.example.jiaoji_app_back.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class ActivitySeviceImpl implements ActivityService {
     public List<ActivityDetails> getActivityList() {
         List<ActivityDetails> activityDetailsList= activityDao.getAllActivities();
         return activityDetailsList;
+    }
+    @Override
+    public List<ActivityResponse> getMyActivityList(int userId) {
+       return activityDao.getMyActivities(userId);
     }
     @Override
     public Message getPassedActivity(){
