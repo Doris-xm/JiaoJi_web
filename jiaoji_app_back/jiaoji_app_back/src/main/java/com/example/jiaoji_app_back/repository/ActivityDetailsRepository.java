@@ -14,6 +14,7 @@ public interface ActivityDetailsRepository {
     ActivityDetails handleSignup(Long userId, Long activityId);
 
     ActivityDetails getPassedActivityById(Long activityId);
+    ActivityDetails getActivityById(Long activityId);
 
     void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
 }

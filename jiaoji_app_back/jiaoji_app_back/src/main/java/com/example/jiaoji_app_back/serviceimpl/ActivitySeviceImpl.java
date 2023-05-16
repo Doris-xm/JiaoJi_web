@@ -15,13 +15,9 @@ public class ActivitySeviceImpl implements ActivityService {
     @Autowired
     private ActivityDao activityDao;
     @Override
-    public Message getActivityList() {
+    public List<ActivityDetails> getActivityList() {
         List<ActivityDetails> activityDetailsList= activityDao.getAllActivities();
-        if(activityDetailsList!= null){
-            return new Message("获取活动列表成功",true,activityDetailsList);
-        }else{
-            return new Message("获取活动列表失败",false,null);
-        }
+        return activityDetailsList;
     }
     @Override
     public Message getPassedActivity(){
@@ -66,5 +62,11 @@ public class ActivitySeviceImpl implements ActivityService {
 
         return new Message("报名成功",true,null);
 
+    }
+
+    @Override
+    public ActivityDetails getActivityById(Long activityId){
+        ActivityDetails activityDetails= activityDao.getActivityById(activityId);
+        return activityDetails;
     }
 }

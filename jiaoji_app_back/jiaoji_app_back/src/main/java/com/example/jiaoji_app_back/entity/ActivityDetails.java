@@ -33,8 +33,9 @@ public class ActivityDetails {
     private Long laborHour;
     private String status;
     private String comments;
+    private String photo;
 
-    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, String status, String comments) {
+    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, String status, String comments, String photo) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -53,6 +54,7 @@ public class ActivityDetails {
         this.laborHour = laborHour;
         this.status = status;
         this.comments = comments;
+        this.photo = photo;
     }
 
 

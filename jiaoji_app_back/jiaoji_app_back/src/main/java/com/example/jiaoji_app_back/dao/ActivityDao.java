@@ -15,5 +15,7 @@ public interface ActivityDao {
 
     ActivityDetails getPassedActivityByAId(Long activityId);
 
+    ActivityDetails getActivityById(Long activityId);
+
     void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
 }

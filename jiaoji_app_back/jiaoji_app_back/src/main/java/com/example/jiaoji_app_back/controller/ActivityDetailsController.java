@@ -24,8 +24,12 @@ public class ActivityDetailsController {
         this.activityDetailsRepository = activityDetailsRepository;
     }
 
-    @GetMapping("/activityDetails")
-    public Message getList(){
+    @RequestMapping("/activity")
+    public ActivityDetails getActivityById(@RequestParam("id") Long id) {
+        return  activityService.getActivityById(id);
+    }
+    @RequestMapping("/activities")
+    public List<ActivityDetails> getList(){
         return activityService.getActivityList();
     }
     @GetMapping("/getPassedActivities")

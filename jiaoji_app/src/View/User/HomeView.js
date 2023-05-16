@@ -14,6 +14,7 @@ import MomentsView from "../MomentsView";
 import { UserOutlined } from "@ant-design/icons";
 import { getUserByUserId } from "../../Services/UserService";
 import { Button, Avatar } from "antd";
+import ActivityDetail from "../DetailView";
 const { Header, Content } = Layout;
 const { Search } = Input;
 
@@ -65,8 +66,8 @@ const HomeView = () => {
 
     if (isLoading && userData !== null && userData.userId !== null) {
         getUserByUserId(userData.userId, (data) => {
-            console.log("data here");
-            console.log(data);
+            // console.log("data here");
+            // console.log(data);
             // setIsLoading(true);
             if (data.nickname !== null) {
                 setUser(data);
@@ -77,8 +78,8 @@ const HomeView = () => {
         });
     }
 
-    console.log("user");
-    console.log(user);
+    // console.log("user");
+    // console.log(user);
 
     const handleLogout = () => {
         localStorage.removeItem("user");
@@ -88,7 +89,7 @@ const HomeView = () => {
                 setIsLoading2(false);
             }
         }
-        console.log("logout button is clicked");
+        // console.log("logout button is clicked");
         window.location.reload();
     };
 
@@ -133,21 +134,21 @@ const HomeView = () => {
                         {/* <div style={{  display: "flex", alignItems: "center" }}> */}
                         {isLoading ? (
                             <>
-                                <h-white style={{ margin: "0px 16px 0px 0px" }}>Hello!</h-white>
+                                <h-white style={{ margin: "0px 16px 0px 0px", color:"rgb(0,0,0)"}}>Hello!</h-white>
                                 <UserOutlined
-                                    style={{ margin: "0px 8px", color: "#fff", fontSize: "20px" }}
+                                    style={{ margin: "0px 8px", color: "#000", fontSize: "20px" }}
                                 />
-                                <Button type="link" href="/login">
+                                <Button type="link" href="/login" >
                                     点击登录
                                 </Button>
                             </>
                         ) : (
                             <>
                                 <Avatar src={user.avatar} style={{ margin: "0px 8px" }} />
-                                <h2-white style={{ marginLeft: "8px" }}>
-                                    Hello，{user.nickname}!
-                                </h2-white>
-                                <Button onClick={handleLogout} style={{ marginLeft: "8px" }}>
+                                <h-white style={{ marginLeft: "8px" , color:"rgb(0,0,0)"}}>
+                                    Hello，{user.nickname} !
+                                </h-white>
+                                <Button onClick={handleLogout} style={{ marginLeft: "10px" }}>
                                     登出
                                 </Button>
                             </>
@@ -159,6 +160,7 @@ const HomeView = () => {
                     <Route path="/chat" element={<ChatView />} />
                     <Route path="/info" element={<InfoView />} />
                     <Route path="/moment" element={<MomentsView />} />
+                    <Route path="/activity/:activityId" element={<ActivityDetail />} />
                 </Routes>
 
                 {/*<Content className="background">*/}

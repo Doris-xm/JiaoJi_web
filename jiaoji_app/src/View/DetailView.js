@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import ActivityDetails from "../Component/Activity/ActivityDetails";
 import activities from "../Component/Activity/Activities";
 
-const ActivityDetail = ({ ActivityId }) => {
-    const activity = activities[ActivityId - 1];
+const ActivityDetail = () => {
+    // console.log("ActivityDetail",ActivityId);
+    // const activity = activities[ActivityId - 1];
 
     const handleAddToCartButtonClick = () => {
         // 添加到感兴趣活动列表的逻辑
@@ -13,7 +14,7 @@ const ActivityDetail = ({ ActivityId }) => {
 
     return (
         <div>
-            <ActivityDetails activity={activity} />
+            <ActivityDetails/>
             <div style={{ marginBottom: '20px' }}></div>
             <Row gutter={16}>
                 <Col span={12} >
