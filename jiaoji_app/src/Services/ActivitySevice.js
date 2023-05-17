@@ -37,7 +37,7 @@ export const getActivityByID = async (id) => {
     return activity;
 }
 export function changeStatus(id, status, comment, callback) {
-    fetch('/changeStatus', {
+    fetch('/api/changeStatus', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -64,12 +64,33 @@ export function changeStatus(id, status, comment, callback) {
         });
 }
 /*
+* @Brief: 获取审核过的活动
+* 用于用户主页
+* */
+export const getPassActivities = async () => {
+    let activities = null;
+    try {
+        const response = await fetch(`/api/activities`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        activities = await response.json();
+    } catch (error) {
+        console.error("Error fetching activity:", error);
+    }
+    return activities;
+}
+
+/*
 * @Brief: 获取所有活动
+* 用于审核主页
 * */
 export const getAllActivities = async () => {
     let activities = null;
     try {
-        const response = await fetch(`/api/activities`, {
+        const response = await fetch(`/api/allactivities`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -102,4 +123,22 @@ export const getMyActivities = async (userId) => {
         console.error("Error fetching activity:", error);
     }
     return activities;
+}
+
+export const searchActivities = async (keyword) => {
+    let activity = null;
+    console.log("keyword",keyword);
+    try {
+        const response = await fetch(`/api/search?keyword=${keyword}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        activity = await response.json();
+        console.log("search", activity);
+    } catch (error) {
+        console.error("Error search activity:", error);
+    }
+    return activity;
 }

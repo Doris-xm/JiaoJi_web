@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AdminActivity from "../../Component/Admin/AdminActivity";
 import { getAllActivities } from "../../Services/ActivitySevice";
 import { useEffect, useState } from "react";
+import {STATUS} from "../../utils/Constant";
 
 /**
  * 活动历史页面
@@ -32,7 +33,7 @@ class AdminHistoryView extends React.Component {
                 <h1>已通过</h1>
                 <List
                     grid={{ gutter: 16, column: 1 }}
-                    dataSource={this.state.activities.filter((activity) => activity.status === 'PASS')}
+                    dataSource={this.state.activities.filter((activity) => activity.status === STATUS.PASS)}
                     renderItem={(activity) => (
                         <List.Item>
                             <AdminActivity activity={activity} />
@@ -42,7 +43,7 @@ class AdminHistoryView extends React.Component {
                 <h1>已驳回</h1>
                 <List
                     grid={{ gutter: 16, column: 1 }}
-                    dataSource={this.state.activities.filter((activity) => activity.status === 'REJECTED')}
+                    dataSource={this.state.activities.filter((activity) => activity.status === STATUS.REJECTED)}
                     renderItem={(activity) => (
                         <List.Item>
                             <AdminActivity activity={activity} />

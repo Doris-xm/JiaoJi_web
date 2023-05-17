@@ -15,10 +15,12 @@ public interface ActivityDao {
 
     public  List<ActivityDetails> getPassedActivity();
 
-    public  ActivityDetails changeStatus(Long id, String status, String comments);
+    public  ActivityDetails changeStatus(Long id, Integer status, String comments);
 
     public  void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
 
     public ActivityDetails getActivityById(Long activityId);
+
+    public List<ActivityDetails> searchActivity(String keyword);
 
 }

@@ -3,6 +3,7 @@ import {Card, Button, Modal, Input, Radio} from "antd";
 import { useState,setState } from "react";
 import { changeStatus } from "../../Services/ActivitySevice";
 import { useNavigate } from "react-router-dom";
+import {STATUS} from "../../utils/Constant";
 
 /**
  * 管理者单个活动视图
@@ -68,10 +69,10 @@ const ManageActivityView = ({ activity }) => {
             content:<div>
                 <Radio.Group
                     onChange={(e) => {activity.status = e.target.value;}}
-                    defaultValue={'PASS'}
+                    defaultValue={STATUS.PASS}
                 >
-                    <Radio value={'PASS'}>通过</Radio>
-                    <Radio value={'REJECTED'}>驳回</Radio>
+                    <Radio value={STATUS.PASS}>通过</Radio>
+                    <Radio value={STATUS.REJECTED}>驳回</Radio>
                 </Radio.Group>
                 <br/>
                 <Input
@@ -87,7 +88,7 @@ const ManageActivityView = ({ activity }) => {
             closable: true,
             icon: null,
             onOk: () => {
-                activity.status === 'TODO' ? activity.status = 'PASS' : activity.status = 'REJECTED';
+                activity.status === STATUS.TODO ? activity.status = STATUS.PASS : activity.status = STATUS.REJECTED;
                 console.log(activity.status);
                 fetch('/api/changeStatus', {
                     method: 'POST',
@@ -118,7 +119,7 @@ const ManageActivityView = ({ activity }) => {
                 window.location.reload();
             },
             onCancel:() => {
-                activity.status = 'TODO';
+                activity.status = STATUS.TODO;
             }
         });
     };
@@ -131,7 +132,7 @@ const ManageActivityView = ({ activity }) => {
                 tabList={tabList}
                 activeTabKey={activeTabKey}
                 onTabChange={onTabChange}
-                tabBarExtraContent={activity.status === 'TODO' ?
+                tabBarExtraContent={activity.status === STATUS.TODO ?
                     <Button type="primary" onClick={() => handleClick(activity)}>
                         审核
                     </Button>

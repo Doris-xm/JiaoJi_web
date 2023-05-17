@@ -13,32 +13,13 @@ import javax.persistence.*;
 @Table(name ="activity_details")
 public class ActivityDetails {
     public enum Status {
-        NOT_RELEASE("notRelease"),
-        TODO("todo"),
-        PASS("pass"),
-        REJECTED("rejected"),
-        SIGN("sign"),
-        PROCESS("process"),
-        OVER("over");
-
-        private final String value;
-
-        Status(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public static Status fromValue(String value) {
-            for (Status status : Status.values()) {
-                if (status.getValue().equalsIgnoreCase(value)) {
-                    return status;
-                }
-            }
-            throw new IllegalArgumentException("Invalid Status value: " + value);
-        }
+        REJECTED,
+        NOT_RELEASE,
+        TODO,
+        PASS,
+        SIGN,
+        PROCESS,
+        OVER;
     }
 
 
@@ -59,12 +40,11 @@ public class ActivityDetails {
     private String organizer;
     private Long suScore;
     private Long laborHour;
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private Integer status;
     private String comments;
     private String photo;
 
-    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, String status, String comments, String photo) {
+    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -81,7 +61,7 @@ public class ActivityDetails {
         this.organizer = organizer;
         this.suScore = suScore;
         this.laborHour = laborHour;
-        this.status = Status.valueOf(status.toUpperCase());
+        this.status = status;
         this.comments = comments;
         this.photo = photo;
     }

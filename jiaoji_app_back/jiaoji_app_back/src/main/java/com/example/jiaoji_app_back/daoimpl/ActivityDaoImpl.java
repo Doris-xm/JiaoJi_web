@@ -20,7 +20,8 @@ public class ActivityDaoImpl implements ActivityDao {
     private SignupRepository signupRepository;
     @Override
     public List<ActivityDetails> getAllActivities() {
-//        return activityDetailsRepository.findAllByStatusGreaterThanAndStatusLessThan(ActivityDetails.Status.TODO, ActivityDetails.Status.OVER);
+        System.out.println(ActivityDetails.Status.OVER.ordinal());
+//      return activityDetailsRepository.findAllByStatusGreaterThanEqualAndStatusLessThan(ActivityDetails.Status.PASS.ordinal(), ActivityDetails.Status.OVER.ordinal());
         return activityDetailsRepository.findAll();
     }
     @Override
@@ -46,14 +47,15 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public  List<ActivityDetails> getPassedActivity(){
-        return activityDetailsRepository.findAllByStatusGreaterThanAndStatusLessThan(ActivityDetails.Status.PASS, ActivityDetails.Status.OVER);
-
+        return activityDetailsRepository.findAllByStatusGreaterThanEqualAndStatusLessThan(ActivityDetails.Status.PASS.ordinal(), ActivityDetails.Status.OVER.ordinal());
     }
     @Override
-    public  ActivityDetails changeStatus(Long id, String status, String comments){
+    public  ActivityDetails changeStatus(Long id, Integer status, String comments){
         ActivityDetails activityDetails = activityDetailsRepository.findById(id);
-        activityDetails.setStatus( ActivityDetails.Status.valueOf(status.toUpperCase()));
+        System.out.println("before" + activityDetails);
+        activityDetails.setStatus(status);
         activityDetails.setComments(comments);
+        System.out.println("after" + activityDetails);
         activityDetailsRepository.save(activityDetails);
         return activityDetails;
     }
@@ -69,6 +71,13 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public ActivityDetails getActivityById(Long activityId){
         return activityDetailsRepository.findById(activityId);
+    }
+
+    @Override
+    public List<ActivityDetails> searchActivity(String keyword) {
+        System.out.println(keyword);
+//        return activityDetailsRepository.findAllByNameContainingAndStatusGreaterThan(keyword,ActivityDetails.Status.TODO.ordinal());
+        return activityDetailsRepository.findAllByNameContainingOrContentContainingOrCollegeContainingOrClubContainingAndStatusGreaterThan(keyword,keyword,keyword,keyword,ActivityDetails.Status.TODO.ordinal());
     }
 
 }

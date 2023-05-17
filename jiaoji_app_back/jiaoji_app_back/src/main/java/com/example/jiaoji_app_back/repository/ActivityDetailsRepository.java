@@ -33,7 +33,10 @@ public interface ActivityDetailsRepository extends JpaRepository<ActivityDetails
     ActivityDetails findById(Long activityId);
     List<ActivityDetails> findAll();
 
-    List<ActivityDetails> findAllByStatusGreaterThanAndStatusLessThan(ActivityDetails.Status startStatus, ActivityDetails.Status endStatus);
+    List<ActivityDetails> findAllByStatusGreaterThanEqualAndStatusLessThan(Integer startStatus, Integer endStatus);
     List<ActivityDetails> findByStatus(ActivityDetails.Status Status);
+    List<ActivityDetails> findAllByNameContainingOrContentContainingOrCollegeContainingOrClubContainingAndStatusGreaterThan(String keyword1,String keyword2,String keyword3,String keyword4,Integer status);
+
+    List<ActivityDetails> findAllByNameContainingAndStatusGreaterThan(String keyword1, Integer status);
 
 }

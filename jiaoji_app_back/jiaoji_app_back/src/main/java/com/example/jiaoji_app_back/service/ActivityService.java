@@ -9,10 +9,11 @@ import java.util.List;
 public interface ActivityService {
     public List<ActivityDetails> getActivityList();
     public List<ActivityResponse> getMyActivityList(int userId) ;
-    public Message getPassedActivity();
-    public Message changeStatus(Long id, String status, String comments);
+    public List<ActivityDetails> getPassedActivity();
+    public Message changeStatus(Long id, Integer status, String comments);
     public Message updateActivityRemainingNumber(Long l,Long remainingNumber);
 
     public ActivityDetails getActivityById(Long activityId);
+    public List<ActivityDetails> searchActivity(String keyword);
 
 }

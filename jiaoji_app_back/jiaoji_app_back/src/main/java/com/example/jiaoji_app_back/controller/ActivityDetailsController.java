@@ -31,8 +31,13 @@ public class ActivityDetailsController {
     public ActivityDetails getActivityById(@RequestParam("id") Long id) {
         return  activityService.getActivityById(id);
     }
-    @RequestMapping("/activities")
+    @RequestMapping("/allactivities")
     public List<ActivityDetails> getList(){
+        return activityService.getActivityList();
+    }
+
+    @RequestMapping("/activities")
+    public List<ActivityDetails> getPassedActivities(){
         return activityService.getActivityList();
     }
 
@@ -40,17 +45,20 @@ public class ActivityDetailsController {
     public List<ActivityResponse> getMyActivities(@RequestParam("userId") int userId) {
         return activityService.getMyActivityList(userId);
     }
+    @RequestMapping("/search")
+    public List<ActivityDetails> searchActivity(@RequestParam("keyword") String keyword){
+        return activityService.searchActivity(keyword);
+    }
 
-
-    @GetMapping("/getPassedActivities")
-    public Message getPassedList2(){
+    @GetMapping("/activities")
+    public List<ActivityDetails> getPassedList(){
         return activityService.getPassedActivity();
     }
 
     @PostMapping("/changeStatus")
     public Message changeStatus(@RequestBody Map<String,Object> body){
         Long id = Long.valueOf(body.get("id").toString());
-        String status = (String) body.get("status");
+        Integer status = Integer.valueOf(body.get("status").toString());
         String comments = (String) body.get("comments");
         return activityService.changeStatus(id, status,comments);
     }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AdminActivity from "../../Component/Admin/AdminActivity";
 import { getAllActivities } from "../../Services/ActivitySevice";
 import { useEffect, useState } from "react";
+import {STATUS} from "../../utils/Constant";
 
 /**
  * 管理活动页面
@@ -32,7 +33,7 @@ class ManageView extends React.Component {
             <div>
                 <List
                     grid={{ gutter: 16, column: 1 }}
-                    dataSource={this.state.activities.filter((activity) => activity.status === 'TODO')}
+                    dataSource={this.state.activities.filter((activity) => activity.status === STATUS.TODO)}
                     renderItem={(activity) => (
                         <List.Item>
                             <AdminActivity activity={activity} />

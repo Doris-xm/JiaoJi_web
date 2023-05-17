@@ -24,19 +24,14 @@ public class ActivitySeviceImpl implements ActivityService {
        return activityDao.getMyActivities(userId);
     }
     @Override
-    public Message getPassedActivity(){
-        List<ActivityDetails> activityDetailsList= activityDao.getPassedActivity();
-        if(activityDetailsList!= null){
-            return new Message("获取活动列表成功",true,activityDetailsList);
-        }else{
-            return new Message("获取活动列表失败",false,null);
-        }
+    public  List<ActivityDetails> getPassedActivity(){
+      return activityDao.getPassedActivity();
     }
     @Override
-    public Message changeStatus(Long id, String status, String comments){
-        ActivityDetails activityDetailsList= activityDao.changeStatus(id,status,comments);
-        if(activityDetailsList!= null){
-            return new Message("改变活动状态成功",true,activityDetailsList);
+    public Message changeStatus(Long id, Integer status, String comments){
+        ActivityDetails activityDetails= activityDao.changeStatus(id, status,comments);
+        if(activityDetails!= null){
+            return new Message("改变活动状态成功",true,activityDetails);
         }else{
             return new Message("改变活动状态失败",false,null);
         }
@@ -52,5 +47,10 @@ public class ActivitySeviceImpl implements ActivityService {
     @Override
     public ActivityDetails getActivityById(Long activityId){
         return activityDao.getActivityById(activityId);
+    }
+
+    @Override
+    public List<ActivityDetails> searchActivity(String keyword){
+        return activityDao.searchActivity(keyword);
     }
 }
