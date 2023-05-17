@@ -23,16 +23,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserAuth checkUser(String username, String password){
-
         return userAuthRepository.checkUser(username,password);
     }
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
-    public User findByUserId(Integer userId) {
-        return entityManager.find(User.class, userId);
+    public User getUserByUserId(Integer userId) {
+        return userRepository.findByUserId(userId);
     }
-
 }

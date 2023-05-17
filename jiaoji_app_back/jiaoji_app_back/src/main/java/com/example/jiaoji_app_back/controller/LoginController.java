@@ -1,6 +1,7 @@
 package com.example.jiaoji_app_back.controller;
 
 import com.example.jiaoji_app_back.constant.Constant;
+import com.example.jiaoji_app_back.entity.User;
 import com.example.jiaoji_app_back.entity.UserAuth;
 import com.example.jiaoji_app_back.service.UserService;
 import com.example.jiaoji_app_back.utils.msgutils.Msg;
@@ -36,16 +37,25 @@ public class LoginController {
         UserAuth auth = userService.checkUser(username, password);
 
         if(auth != null){
+            User user = userService.getUserByUserId(auth.getUserId());
 
             JSONObject obj = new JSONObject();
             obj.put(Constant.USER_ID, auth.getUserId());
             obj.put(Constant.USERNAME, auth.getUsername());
             obj.put(Constant.USER_TYPE, auth.getUserType());
-            SessionUtil.setSession(obj);
+            obj.put(Constant.AVATAR, user.getAvatar());
+            obj.put(Constant.NICKNAME, user.getNickname());
+            obj.put(Constant.GENDER, user.getGender());
+            obj.put(Constant.EMAIL, user.getMail());
+            obj.put(Constant.PHONE, user.getTel());
+            obj.put(Constant.COLLEGE, user.getCollege());
+            obj.put(Constant.STU_ID, user.getStudentId());
+            obj.put(Constant.CLUB, user.getClub());
+            obj.put(Constant.GRADE, user.getGrade());
 
-            JSONObject data = JSONObject.fromObject(auth);
 
-            data.remove(Constant.PASSWORD);
+
+            JSONObject data = JSONObject.fromObject(obj);
 
             return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);
         }

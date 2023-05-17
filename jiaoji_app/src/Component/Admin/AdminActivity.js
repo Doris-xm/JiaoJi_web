@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Card, Button, Modal, Input, Radio} from "antd";
 import { useState,setState } from "react";
+import { changeStatus } from "../../Services/ActivitySevice";
+import { useNavigate } from "react-router-dom";
 
 /**
  * 管理者单个活动视图
@@ -28,7 +30,7 @@ const ManageActivityView = ({ activity }) => {
 
     const contentList = {
         brief: <div>
-            活动名称：{activity.name}
+            活动人数：{activity.recruitmentNumber}
             <br/>
             活动时间：{activity.activityTime}
             <br/>
@@ -36,7 +38,7 @@ const ManageActivityView = ({ activity }) => {
             <br/>
         </div>,
         detail: <div>
-            活动名称：{activity.name}
+            活动人数：{activity.recruitmentNumber }
             <br/>
             活动时间：{activity.activityTime}
             <br/>
@@ -44,10 +46,19 @@ const ManageActivityView = ({ activity }) => {
             <br/>
             活动地点：{activity.location}
             <br/>
-            报名时间：{activity.signUpTime}
+            报名时间：{activity.signupTime}
             <br/>
             活动内容：{activity.content}
             <br/>
+            限制学院：{activity.college || '无'}
+            <br/>   
+            限制社团：{activity.club || '无'}
+            <br/>
+            限制年级：{activity.grade || '无'}
+            <br/>
+            学分：{activity.suScore}
+            <br/>
+            劳动学时：{activity.laborHour}
         </div>,
     };
 
@@ -57,17 +68,17 @@ const ManageActivityView = ({ activity }) => {
             content:<div>
                 <Radio.Group
                     onChange={(e) => {activity.status = e.target.value;}}
-                    defaultValue={'已通过'}
+                    defaultValue={'PASS'}
                 >
-                    <Radio value={'已通过'}>通过</Radio>
-                    <Radio value={'已驳回'}>驳回</Radio>
+                    <Radio value={'PASS'}>通过</Radio>
+                    <Radio value={'REJECTED'}>驳回</Radio>
                 </Radio.Group>
                 <br/>
                 <Input
                     type="text"
                     placeholder="审核意见"
                     onChange={(e) => {
-                        activity.feedback = e.target.value;
+                        activity.comments= e.target.value;
                     }}
                 />
             </div>,
@@ -76,13 +87,38 @@ const ManageActivityView = ({ activity }) => {
             closable: true,
             icon: null,
             onOk: () => {
-                activity.status === '待审核' ? activity.status = '已通过' : activity.status = '已驳回';
+                activity.status === 'TODO' ? activity.status = 'PASS' : activity.status = 'REJECTED';
                 console.log(activity.status);
-                // 当前活动状态发到后端
-
+                fetch('/api/changeStatus', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "id": activity.id,
+                        "status": activity.status,
+                        "comments": activity.comments,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            // 如果成功获取数据，将数据传递给回调函数
+                            //
+                            console.log(data.ok)
+                        } else {
+                            // 如果获取数据失败，将错误信息传递给回调函数
+                            console.log(data.msg);
+                        }
+                    })
+                    .catch(error => {
+                        // 如果出现错误，将错误信息传递给回调函数
+                       console.log(error)
+                    });
+                window.location.reload();
             },
             onCancel:() => {
-                activity.status = '待审核';
+                activity.status = 'TODO';
             }
         });
     };
@@ -95,13 +131,13 @@ const ManageActivityView = ({ activity }) => {
                 tabList={tabList}
                 activeTabKey={activeTabKey}
                 onTabChange={onTabChange}
-                tabBarExtraContent={activity.status === '待审核' ?
+                tabBarExtraContent={activity.status === 'TODO' ?
                     <Button type="primary" onClick={() => handleClick(activity)}>
                         审核
                     </Button>
                     :
                     <div>
-                        反馈：{activity.feedback}
+                        反馈：{activity.comments}
                     </div>}
             >
                 {contentList[activeTabKey]}

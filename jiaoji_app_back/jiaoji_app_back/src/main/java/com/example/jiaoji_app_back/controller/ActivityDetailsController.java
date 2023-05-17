@@ -54,40 +54,40 @@ public class ActivityDetailsController {
         String comments = (String) body.get("comments");
         return activityService.changeStatus(id, status,comments);
     }
-    @PostMapping("/handleSignup")
-    public Message handleSignup(@RequestBody Map<String,Object> body){
-        Long userId = Long.valueOf(body.get("userId").toString());
-        String college = (String) body.get("college");
-        String grade = (String) body.get("grade");
-        String club = (String) body.get("club");
-        Long activityId = Long.valueOf(body.get("activityId").toString());
-        ActivityDetails activityDetails = activityService.getPassedActivitiesByAId(activityId);
-        //剩余名额减一
-        if(activityDetails.getRemainingNumber()>0){
-
-            if(activityDetails.getCollege() !=null){
-                if(!Objects.equals(college, activityDetails.getCollege())){
-                    return new Message("学院不符合要求",false,null);
-                }
-            }
-            if(activityDetails.getClub() !=null){
-                if(!Objects.equals(club, activityDetails.getClub())){
-                    return new Message("社团不符合要求",false,null);
-                }
-            }
-            if(activityDetails.getGrade() !=null){
-                if(!Objects.equals(grade, activityDetails.getGrade())){
-                    return new Message("年级不符合要求",false,null);
-                }
-            }
-            activityDetails.setRemainingNumber(activityDetails.getRemainingNumber()-1);
-            Message message = activityService.updateActivityRemainingNumber(activityId,activityDetails.getRemainingNumber() -1);
-            System.out.println(message.getOk());
-            return new Message("报名成功",true,activityDetails);
-        }else
-            return new Message("报名失败",false,null);
-
-    }
+//    @PostMapping("/handleSignup")
+//    public Message handleSignup(@RequestBody Map<String,Object> body){
+//        Long userId = Long.valueOf(body.get("userId").toString());
+//        String college = (String) body.get("college");
+//        String grade = (String) body.get("grade");
+//        String club = (String) body.get("club");
+//        Long activityId = Long.valueOf(body.get("activityId").toString());
+//        ActivityDetails activityDetails = activityService.getPassedActivitiesByAId(activityId);
+//        //剩余名额减一
+//        if(activityDetails.getRemainingNumber()>0){
+//
+//            if(activityDetails.getCollege() !=null){
+//                if(!Objects.equals(college, activityDetails.getCollege())){
+//                    return new Message("学院不符合要求",false,null);
+//                }
+//            }
+//            if(activityDetails.getClub() !=null){
+//                if(!Objects.equals(club, activityDetails.getClub())){
+//                    return new Message("社团不符合要求",false,null);
+//                }
+//            }
+//            if(activityDetails.getGrade() !=null){
+//                if(!Objects.equals(grade, activityDetails.getGrade())){
+//                    return new Message("年级不符合要求",false,null);
+//                }
+//            }
+//            activityDetails.setRemainingNumber(activityDetails.getRemainingNumber()-1);
+//            Message message = activityService.updateActivityRemainingNumber(activityId,activityDetails.getRemainingNumber() -1);
+//            System.out.println(message.getOk());
+//            return new Message("报名成功",true,activityDetails);
+//        }else
+//            return new Message("报名失败",false,null);
+//
+//    }
 
 
 }

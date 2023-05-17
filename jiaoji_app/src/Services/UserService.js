@@ -3,6 +3,19 @@ import { history } from "../utils/history";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * avatar :
+ * club:
+ * college:
+ * mail:
+ * gender:
+ * nickname :
+ * phone:
+ * stu_id:
+ * userId:
+ * userType:
+ * username:
+ * */
 export const login = (data) => {
     const url = `/api/login`;
     const callback = (data) => {
@@ -27,14 +40,6 @@ export const getUser = () => {
     } else {
         return null;
     }
-};
-
-export const getUserByUserId = (userId, callback) => {
-    const data = { userId: userId };
-    console.log("getUserByUserId", data);
-    const url = `http://localhost:8003/get_user`;
-
-    postRequest(url, data, callback);
 };
 
 export const createUser = (data, callback) => {

@@ -7,17 +7,12 @@ import com.example.jiaoji_app_back.utils.msgutils.Message;
 import java.util.List;
 
 public interface ActivityService {
-    List<ActivityDetails> getActivityList();
-    List<ActivityResponse> getMyActivityList(int userId);
+    public List<ActivityDetails> getActivityList();
+    public List<ActivityResponse> getMyActivityList(int userId) ;
+    public Message getPassedActivity();
+    public Message changeStatus(Long id, String status, String comments);
+    public Message updateActivityRemainingNumber(Long l,Long remainingNumber);
 
-    Message getPassedActivity();
+    public ActivityDetails getActivityById(Long activityId);
 
-    Message changeStatus(Long id, String status, String comments);
-
-    Message handleSignup(Long userId, Long activityId);
-
-    ActivityDetails getPassedActivitiesByAId(Long activityId);
-    ActivityDetails getActivityById(Long activityId);
-
-    Message updateActivityRemainingNumber(Long l,Long remainingNumber);
 }

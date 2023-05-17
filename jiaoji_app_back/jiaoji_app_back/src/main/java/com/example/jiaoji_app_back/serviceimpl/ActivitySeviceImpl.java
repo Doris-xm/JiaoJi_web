@@ -17,8 +17,7 @@ public class ActivitySeviceImpl implements ActivityService {
     private ActivityDao activityDao;
     @Override
     public List<ActivityDetails> getActivityList() {
-        List<ActivityDetails> activityDetailsList= activityDao.getAllActivities();
-        return activityDetailsList;
+        return activityDao.getAllActivities();
     }
     @Override
     public List<ActivityResponse> getMyActivityList(int userId) {
@@ -43,25 +42,6 @@ public class ActivitySeviceImpl implements ActivityService {
         }
     }
     @Override
-    public Message handleSignup(Long userId, Long activityId){
-        ActivityDetails activityDetailsList= activityDao.handleSignup(userId,activityId);
-        if(activityDetailsList!= null){
-            return new Message("报名成功",true,activityDetailsList);
-        }else{
-            return new Message("报名失败",false,null);
-        }
-    }
-    @Override
-    public ActivityDetails getPassedActivitiesByAId(Long activityId){
-        ActivityDetails activityDetails= activityDao.getPassedActivityByAId(activityId);
-//            if(activityDetails!= null){
-//                return new Message("报名成功",true,activityDetails);
-//            }else{
-//                return new Message("报名失败",false,null);
-//            }
-        return activityDetails;
-    }
-    @Override
     public Message updateActivityRemainingNumber(Long l,Long remainingNumber){
         activityDao.updateActivityRemainingNumber(l,remainingNumber);
 
@@ -71,7 +51,6 @@ public class ActivitySeviceImpl implements ActivityService {
 
     @Override
     public ActivityDetails getActivityById(Long activityId){
-        ActivityDetails activityDetails= activityDao.getActivityById(activityId);
-        return activityDetails;
+        return activityDao.getActivityById(activityId);
     }
 }

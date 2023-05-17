@@ -20,7 +20,8 @@ public class ActivityDaoImpl implements ActivityDao {
     private SignupRepository signupRepository;
     @Override
     public List<ActivityDetails> getAllActivities() {
-        return activityDetailsRepository.findAllActivity();
+//        return activityDetailsRepository.findAllByStatusGreaterThanAndStatusLessThan(ActivityDetails.Status.TODO, ActivityDetails.Status.OVER);
+        return activityDetailsRepository.findAll();
     }
     @Override
     public List<ActivityResponse> getMyActivities(int userId) {
@@ -29,7 +30,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
         for (ActivitySignup activitySignup : activitySignups) {
             long activityId = (long)activitySignup.getActId();
-            ActivityDetails activityDetails = activityDetailsRepository.getActivityById(activityId);
+            ActivityDetails activityDetails = activityDetailsRepository.findById(activityId);
             activityResponses.add(new ActivityResponse(activitySignup.getUserId(),
                     activitySignup.getActId(),
                     activitySignup.getState(),
@@ -45,28 +46,29 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public  List<ActivityDetails> getPassedActivity(){
-        return activityDetailsRepository.findPassedActivity();
+        return activityDetailsRepository.findAllByStatusGreaterThanAndStatusLessThan(ActivityDetails.Status.PASS, ActivityDetails.Status.OVER);
+
     }
     @Override
     public  ActivityDetails changeStatus(Long id, String status, String comments){
-        return activityDetailsRepository.changeStatus(id,status,comments);
+        ActivityDetails activityDetails = activityDetailsRepository.findById(id);
+        activityDetails.setStatus( ActivityDetails.Status.valueOf(status.toUpperCase()));
+        activityDetails.setComments(comments);
+        activityDetailsRepository.save(activityDetails);
+        return activityDetails;
     }
-    @Override
-    public  ActivityDetails handleSignup(Long userId, Long activityId){
-        return activityDetailsRepository.handleSignup(userId,activityId);
-    }
-    @Override
-    public ActivityDetails getPassedActivityByAId(Long activityId){
-        return activityDetailsRepository.getPassedActivityById(activityId);
-    }
+
+
     @Override
     public  void updateActivityRemainingNumber(Long activityId,Long remainingNumber){
-        activityDetailsRepository.updateActivityRemainingNumber(activityId,remainingNumber);
+        ActivityDetails activityDetails = activityDetailsRepository.findById(activityId);
+        activityDetails.setRemainingNumber(remainingNumber);
+        activityDetailsRepository.save(activityDetails);
     }
 
     @Override
     public ActivityDetails getActivityById(Long activityId){
-        return activityDetailsRepository.getActivityById(activityId);
+        return activityDetailsRepository.findById(activityId);
     }
 
 }

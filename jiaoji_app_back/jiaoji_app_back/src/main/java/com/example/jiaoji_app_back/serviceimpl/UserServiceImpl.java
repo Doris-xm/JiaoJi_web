@@ -16,12 +16,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserAuth checkUser(String username, String password){
         return userDao.checkUser(username,password);
-
-
     }
 
     @Override
     public User getUserByUserId(Integer userId) {
-        return userDao.findByUserId(userId);
+        return userDao.getUserByUserId(userId);
     }
 }

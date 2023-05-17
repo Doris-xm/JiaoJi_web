@@ -4,9 +4,7 @@ package com.example.jiaoji_app_back.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -14,6 +12,36 @@ import javax.persistence.Table;
 
 @Table(name ="activity_details")
 public class ActivityDetails {
+    public enum Status {
+        NOT_RELEASE("notRelease"),
+        TODO("todo"),
+        PASS("pass"),
+        REJECTED("rejected"),
+        SIGN("sign"),
+        PROCESS("process"),
+        OVER("over");
+
+        private final String value;
+
+        Status(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public static Status fromValue(String value) {
+            for (Status status : Status.values()) {
+                if (status.getValue().equalsIgnoreCase(value)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Invalid Status value: " + value);
+        }
+    }
+
+
     @Id
     private Long id;
     private String name;
@@ -31,7 +59,8 @@ public class ActivityDetails {
     private String organizer;
     private Long suScore;
     private Long laborHour;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     private String comments;
     private String photo;
 
@@ -52,7 +81,7 @@ public class ActivityDetails {
         this.organizer = organizer;
         this.suScore = suScore;
         this.laborHour = laborHour;
-        this.status = status;
+        this.status = Status.valueOf(status.toUpperCase());
         this.comments = comments;
         this.photo = photo;
     }

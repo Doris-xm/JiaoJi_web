@@ -4,15 +4,12 @@ import React, { useState } from "react";
 // import PersonView from "../PersonView";
 import ActivityView from "../ActivityView";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-// import LoginView from "../LoginView";
-// import SignUp from "../SignUpView";
-// import BasicView from "../BasicView";
 import "../../css/HomeView.css";
 import ChatView from "../ChatView";
 import InfoView from "../InfoView";
 import MomentsView from "../MomentsView";
 import { UserOutlined } from "@ant-design/icons";
-import { getUserByUserId } from "../../Services/UserService";
+import {getUser} from "../../Services/UserService";
 import { Button, Avatar } from "antd";
 import ActivityDetail from "../DetailView";
 import MyActivity from "./MyActivity";
@@ -40,17 +37,25 @@ const HomeView = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
 
     if (isLoading && userData !== null && userData.userId !== null) {
-        getUserByUserId(userData.userId, (data) => {
-            // console.log("data here");
-            // console.log(data);
-            // setIsLoading(true);
-            if (data.nickname !== null) {
-                setUser(data);
+        // getUserByUserId(userData.userId, (data) => {
+        //     // console.log("data here");
+        //     // console.log(data);
+        //     // setIsLoading(true);
+        //     if (data.nickname !== null) {
+        //         setUser(data);
+        //         //localStorage.setItem('userInfo', JSON.stringify(data));
+        //         setIsLoading(false);
+        //         // window.location.reload();
+        //     }
+        // });
+        const user = getUser(userData.userId)
+        console.log("user here", user);
+            if (user.nickname !== null) {
+                setUser(user);
                 //localStorage.setItem('userInfo', JSON.stringify(data));
                 setIsLoading(false);
                 // window.location.reload();
             }
-        });
     }
 
     // console.log("user");
