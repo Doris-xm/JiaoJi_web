@@ -16,40 +16,9 @@ import { getUserByUserId } from "../../Services/UserService";
 import { Button, Avatar } from "antd";
 import ActivityDetail from "../DetailView";
 import MyActivity from "./MyActivity";
+import ActivityAboutMe from "./ActivityAboutMe";
 const { Header, Content } = Layout;
 const { Search } = Input;
-
-const items = [
-    {
-        label: "活动大厅",
-        key: "home",
-        path: "/"
-        // component: ActivityView,
-    },
-    {
-        label: "朋友圈",
-        key: "moment",
-        path: "/moment"
-        // component: PersonView,
-    },
-    {
-        label: "聊天室",
-        key: "chat",
-        path: "/chat"
-        // component: ChatView,
-    },
-    {
-        label: "我的活动",
-        key: "myactivity",
-        path: "/myactivity"
-    },
-    {
-        label: "个人中心",
-        key: "person",
-        path: "/info"
-        // component: PersonView,
-    }
-];
 
 /**
  * @description: 活动页面
@@ -170,7 +139,7 @@ const HomeView = () => {
                     <Route path="/info" element={<InfoView />} />
                     <Route path="/moment" element={<MomentsView />} />
                     <Route path="/activity/:activityId" element={<ActivityDetail />} />
-                    <Route path="/myactivity" element={<MyActivity />} />
+                    <Route path="/myactivity" element={<ActivityAboutMe />} />
                 </Routes>
 
                 {/*<Content className="background">*/}
