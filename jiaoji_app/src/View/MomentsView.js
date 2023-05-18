@@ -20,8 +20,10 @@ const { Meta } = Card;
 class MomentsView  extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { posters: [] };
+        this.state = { posters: [] , user: getUser()};
+
     }
+
 
     async componentDidMount() {
         // const userId = getUser().userId;
@@ -59,7 +61,8 @@ class MomentsView  extends React.Component {
                     alignItems: "center",
                 }}
                 >
-                    <PostMoment />
+                    {this.state.user && <PostMoment />}
+                    {/*<PostMoment />*/}
                 </Header>
 
                 <Content
