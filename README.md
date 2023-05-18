@@ -8,3 +8,13 @@
 
 ==》跳至HomeView（用户界面，管理员是AdminHomeView），HomeView中定义了用户所有界面的route逻辑，根据菜单跳转
 
+
+
+TODO：
+
+1. 发布活动，存进数据库
+2. 个人主页，状态
+3. Moment图床
+4. Enum
+5. 图片分类
+6. 

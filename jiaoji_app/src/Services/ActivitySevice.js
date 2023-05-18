@@ -109,7 +109,7 @@ export const getAllActivities = async () => {
 * */
 export const getMyActivities = async (userId) => {
     let activities = null;
-    console.log("userId",userId);
+    // console.log("userId",userId);
     try {
         const response = await fetch(`/api/my_activities?userId=${userId}`, {
             method: 'GET',
@@ -118,7 +118,7 @@ export const getMyActivities = async (userId) => {
             },
         });
         activities = await response.json();
-        console.log("My activities", activities);
+        // console.log("My activities", activities);
     } catch (error) {
         console.error("Error fetching activity:", error);
     }

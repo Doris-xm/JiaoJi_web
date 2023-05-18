@@ -20,4 +20,8 @@ public class SignUpServiceImpl implements SignUpService {
        public List<ActivitySignup> getPostedSignUpList(){
             return signupDao.getPostedSignUpList();
         }
+        @Override
+        public boolean postMoment(Integer userID, Integer actId,Integer comment,  String content, String imgPath,String time){
+            return signupDao.postMoment(userID,actId,comment,content,imgPath,time);
+        }
 }

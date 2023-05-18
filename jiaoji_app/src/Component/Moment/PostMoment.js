@@ -1,9 +1,13 @@
-import {Button, Drawer, message, Radio, Space} from 'antd';
-import React, { useState } from 'react';
+import {Button, Cascader, Drawer, message, Radio, Rate, Space} from 'antd';
+import React, {useEffect, useState} from 'react';
 import PhotoUpload from "./PhotoUpload";
 import {InboxOutlined, PlusOutlined} from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
-import {submitMoment} from "../../Services/MomentService";
+import {getCurrentTime, submitMoment} from "../../Services/MomentService";
+import {getMyActivities} from "../../Services/ActivitySevice";
+import {getUser} from "../../Services/UserService";
+
+const desc = ['不好', '一般', '中立', '不错', '很好'];
 const PostMoment = () => {
     const [open, setOpen] = useState(false);
     const [placement] = useState('top');
@@ -11,13 +15,27 @@ const PostMoment = () => {
         text: '',
         images: []
     });
-    const handleImageUpload = fileList => {
+    const [options, setOptions] = useState([]);
+    const user = getUser();
+    const [comment, setComment] = useState(3);
+
+    useEffect( () => {
+        (async function asyncFunc() {
+            const activities = await getMyActivities(user.userId);
+            console.log(activities)
+            const options = activities.map(activity => ({
+                value: activity.actId,
+                label: activity.name,
+            }));
+            setOptions(options);
+        })();
+    }, [options, user.userId]);
+    const handleImageUpload = names => {
         setMoment({
             ...moment,
-            images: [fileList]
+            images: names
         });
     };
-
 
     const showDrawer = () => {
         setOpen(true);
@@ -26,20 +44,28 @@ const PostMoment = () => {
         setOpen(false);
     };
     const onCommit = () => {
-
+        const time = getCurrentTime();
         // 发送moment对象到后端进行保存
-        submitMoment([this.state.text, this.states.images])
-        //     .then(r => {
-        //     if (r.code === 200) {
-        //         message.success('发布成功');
-        //     } else {
-        //         message.error('发布失败');
-        //     }
-        // });
-        // 清空moment对象
+        console.log(comment.images)
+        submitMoment(({userId: user.userId, activityId: moment.activityId,
+            comment:moment.comment,commentDetail:moment.text,
+            commentPhoto:comment.images,postTime:time }));
         setMoment({ text: '', images: [] });
         setOpen(false);
     };
+    const onChangeChoice = (value) => {
+        console.log(value);
+        const activityId = value[0];
+        setMoment({
+            ...moment,
+            activityId: activityId,
+            comment: comment
+        });
+        console.log(moment);
+    };
+
+    const displayRender = (labels) => labels[labels.length - 1];
+
     return (
         <>
             <Space style={{
@@ -60,6 +86,7 @@ const PostMoment = () => {
                 title=" "
                 placement={placement}
                 width={500}
+                height={500}
                 onClose={onClose}
                 open={open}
                 extra={
@@ -73,7 +100,20 @@ const PostMoment = () => {
                 <TextArea rows={4} placeholder="发布新的朋友圈吧~"
                           value={moment.text}
                           onChange={e => setMoment({ ...moment, text: e.target.value })}/>
-                <br/>  <br/> <br/>
+                <br/> <br/>
+                <text style={{color:"black"}}> 选择需要评价的活动 : </text>
+                <Cascader
+                    options={options}
+                    expandTrigger="hover"
+                    displayRender={displayRender}
+                    onChange={onChangeChoice}
+                />
+                <br/>
+                <span>
+                 <Rate tooltips={desc} onChange={setComment} value={comment} />
+                    {comment ? <span className="ant-rate-text">{desc[comment - 1]}</span> : ''}
+                </span>
+                <br/>  <br/>
                <PhotoUpload onUpload={handleImageUpload}/>
             </Drawer>
         </>

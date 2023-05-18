@@ -24,23 +24,40 @@ public class MomentController {
     @Autowired
     SignUpService signUpService;
 
-    @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/uploadphoto")
-    @ResponseStatus(HttpStatus.OK)
-    public String post(@RequestBody List<File> fileList) {
-        // 处理上传的文件
-        System.out.println(fileList);
-        for (File file : fileList) {
-            System.out.println(file);
-        }
-        return "success";
-    }
+//    @PostMapping
+//    @RequestMapping("/uploadphoto")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String post(@RequestBody List<File> fileList) {
+//        // 处理上传的文件
+//        System.out.println(fileList);
+//        for (File file : fileList) {
+//            System.out.println(file);
+//        }
+//        return "success";
+//    }
 
 
     @RequestMapping("/poster")
     public List<ActivitySignup> getPoster() {
         return signUpService.getPostedSignUpList();
+    }
+
+    @PostMapping
+    @RequestMapping("/post")
+    @ResponseStatus(HttpStatus.OK)
+    public Msg login(@RequestBody Map<String, String> params){
+        String userId = params.get(Constant.USER_ID);
+        String actId = params.get(Constant.ACT_ID);
+        String comment = params.get(Constant.COMMENT);
+        String comment_detail = params.get(Constant.COMMENT_DETAIL);
+        String comment_photo = params.get(Constant.COMMENT_PHOTO);
+        String post_time = params.get(Constant.POST_TIME);
+
+        if(signUpService.postMoment(Integer.parseInt(userId),Integer.parseInt(actId),Integer.parseInt(comment),comment_detail,comment_photo,post_time)){
+            return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.SIGNUP_SUCCESS_MSG);
+        }else{
+            return MsgUtil.makeMsg(MsgCode.ERROR);
+        }
     }
 
 }

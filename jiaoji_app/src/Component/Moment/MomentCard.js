@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {CommentOutlined, EllipsisOutlined,HeartOutlined} from "@ant-design/icons";
-import {Avatar, Card, Skeleton} from "antd";
+import {Avatar, Card, Rate, Skeleton} from "antd";
 import Meta from "antd/es/card/Meta";
 import '../../css/backgroud.css'
+import {Link} from "react-router-dom";
 
 /**
  * 朋友圈卡片
@@ -13,7 +14,10 @@ import '../../css/backgroud.css'
 const MomentCard: React.FC = ({moment}  ) => {
     const [loading, setLoading] = useState(false);
     const [liked, setLiked] = useState(false);
-
+    if( !moment.avatar.includes("http")){
+        moment.avatar = "../../Data/"+moment.avatar;
+        console.log(moment.avatar)
+    }
     const handleLike = () => {
         setLiked(!liked);
     };
@@ -35,13 +39,24 @@ const MomentCard: React.FC = ({moment}  ) => {
                 <Meta
                     avatar={<Avatar src={moment.avatar} />}
                     title={moment.nickname}
-                    description={moment.commentDetail}
                 />
-                <div  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <img style={{width: '80%',marginTop: 16}}
-                         src={moment.commentPhoto}
-                    />
+                <br/>
+
+                <div >
+                    <div><text style={{color:"black", fontSize:"large"}}>{moment.commentDetail}</text></div>
+                    <br/>
+                    <Link to={`/activity/${moment.actId}`}>参与活动： {moment.activityName}</Link>
+                    <div>
+                        <text style={{color:"grey"}}>推荐指数：</text>
+                        <Rate disabled defaultValue={moment.comment} />
+                    </div>
+                    <div  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <img style={{width: '80%',marginTop: 16}}
+                             src={moment.commentPhoto}
+                        />
+                    </div>
                 </div>
+
 
             </Skeleton>
         </Card>

@@ -2,7 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
 import { useState } from 'react';
 import {postRequest} from "../../utils/ajax";
-import {submitPhoto} from "../../Services/MomentService";
+import {getCurrentTime, submitPhoto} from "../../Services/MomentService";
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -38,28 +38,27 @@ const PhotoUpload = ({onUpload}) => {
         setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
     };
     const handleChange =  ({ fileList: newFileList }) => {
-        // const base64Files = await Promise.all(
-        //     newFileList.map(async (file) => ({
-        //         name: file.name,
-        //         base64: await getBase64(file.originFileObj),
-        //     }))
-        // );
-        setFileList(newFileList);
-        // const formData = new FormData();
-        // newFileList.forEach((file) => {
-        //     formData.append('file', file.originFileObj);
-        // });
-        // postRequest('http://localhost:8003/uploadphoto', formData, null);
+        const renamedFileList = newFileList.map((file, index) => {
+            const fileName = `photo_${index + 1}_${getCurrentTime()}.jpg`; // 使用指定的命名规则，这里以photo_1.jpg、photo_2.jpg等命名
+            return {
+                ...file,
+                name: fileName,
+                url:null,
+                status: 'done',
+                // preview: URL.createObjectURL(file.originFileObj), // 设置预览图片的URL
+                // url: URL.createObjectURL(file.originFileObj), // 设置预览图片的URL
+            };
+        });
+
+        setFileList(renamedFileList);
     }
     const handleUpload = () => {
-        submitPhoto(fileList).then(r => {
-            console.log(r);
-        })
-        const newFileList = fileList.map( (file) => ({
-                status: 'done',
-            }))
-        setFileList(newFileList);
-        onUpload(newFileList);
+        let names = '';
+        fileList.forEach((file) => {
+            names += file.name + ';';
+        });
+
+        onUpload(names);
     }
     const uploadButton = (
         <div>
@@ -76,7 +75,7 @@ const PhotoUpload = ({onUpload}) => {
     return (
         <>
             <Upload
-                // action="http://localhost:8003/uploadphoto"
+                action="../../Data"
                 listType="picture-card"
                 fileList={fileList}
                 onPreview={handlePreview}

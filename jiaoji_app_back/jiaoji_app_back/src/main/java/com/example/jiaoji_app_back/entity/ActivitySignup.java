@@ -34,6 +34,10 @@ public class ActivitySignup {
     @Basic
     @Column(name = "posted")
     private Integer posted;
+
+    @Basic
+    @Column(name = "post_time")
+    private String postTime;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "serial")
@@ -47,9 +51,20 @@ public class ActivitySignup {
         this.commentDetail = null;
         this.commentPhoto = null;
         this.posted = 0;
+        this.postTime = null;
     }
     public ActivitySignup(){
 
+    }
+    public void postMoment(Integer userID,Integer actId,Integer comment,String content,String imgPath, String time){
+        this.userId = userID;
+        this.actId = actId;
+        this.comment = comment;
+        this.commentDetail = content;
+        this.commentPhoto = imgPath;
+        this.posted = 1;
+        this.state = SIGNUP_STATE.Commented.ordinal();
+        this.postTime = time;
     }
 
     public Integer getUserId() {
@@ -69,7 +84,7 @@ public class ActivitySignup {
     }
 
     public Integer getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(Integer state) {
@@ -106,6 +121,13 @@ public class ActivitySignup {
 
     public void setPosted(Integer posted) {
         this.posted = posted;
+    }
+
+    public String getPostTime(){
+        return postTime;
+    }
+    public void setPostTime(String postTime){
+        this.postTime = postTime;
     }
 
     public int getSerial() {

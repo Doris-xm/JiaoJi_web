@@ -65,7 +65,7 @@ public class ActivityDetailsController {
 
     @PostMapping("/release")
     public Message release(@RequestBody Map<String,Object> body){
-        Long userId = Long.valueOf(body.get("userId").toString());
+        long userId = Long.parseLong(body.get("userId").toString());
         String name = (String) body.get("name");
         String content = (String) body.get("content");
         String location = (String) body.get("location");

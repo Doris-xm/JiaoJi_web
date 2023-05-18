@@ -25,4 +25,11 @@ public class SignupDaoImpl implements SignupDao {
         return signupRepository.findAllByPostedIs(1);
     }
 
+    @Override
+    public boolean postMoment(Integer userID, Integer actId, Integer comment, String content, String imgPath,String time){
+        ActivitySignup activitySignup = new ActivitySignup();
+        activitySignup.postMoment(userID,actId,comment,content,imgPath,time);
+        signupRepository.save(activitySignup);
+        return true;
+    }
 }

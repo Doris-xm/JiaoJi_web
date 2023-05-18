@@ -16,6 +16,10 @@ public class Constant {
     public static final String STU_ID = "stu_id";//学号
     public static final String CLUB = "club";
     public static final String GRADE = "grade";
+    public static final String COMMENT = "comment";
+    public static final String COMMENT_DETAIL = "commentDetail";
+    public static final String COMMENT_PHOTO = "commentPhoto";
+    public static final String POST_TIME = "postTime";
 
 
     public static final Integer NO_SUCH_USER = -1;

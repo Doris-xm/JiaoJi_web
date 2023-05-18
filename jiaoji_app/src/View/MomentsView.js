@@ -8,31 +8,8 @@ import PostMoment from "../Component/Moment/PostMoment";
 import {getPostedMoment} from "../Services/MomentService";
 import {getUser, getUserById} from "../Services/UserService";
 import moment from "moment/moment";
+import {getActivityByID} from "../Services/ActivitySevice";
 const { Meta } = Card;
-
-const MomentList = [
-    {
-        id: 1,
-        title: 'David',
-        description: 'Hello world.',
-        avatar: 'https://xsgames.co/randomusers/avatar.php?g=pixel&key=1',
-        photo:"https://s1.ax1x.com/2023/05/01/p9Gu41g.jpg",
-    },
-    {
-        id: 2,
-        title: 'Amy',
-        description: 'NICE DAY!',
-        avatar: 'https://xsgames.co/randomusers/avatar.php?g=pixel&key=2',
-        photo:"https://s1.ax1x.com/2023/05/01/p9GKNuj.jpg",
-    },
-    {
-        id: 3,
-        title: 'Doris',
-        description: 'MAYDAY!',
-        avatar: 'https://xsgames.co/randomusers/avatar.php?g=pixel&key=3',
-        photo:"https://s1.ax1x.com/2023/05/01/p9Gu41g.jpg",
-    },
-];
 
 /**
  * @description: 朋友圈页面
@@ -52,11 +29,13 @@ class MomentsView  extends React.Component {
 
         const posters = await Promise.all(
             fetchedPoster.map(async (value) => {
+                const activity = await getActivityByID(value.actId);
                 const user = await getUserById(value.userId);
                 return {
                     ...value,
                     avatar: user.avatar,
-                    nickname: user.nickname
+                    nickname: user.nickname,
+                    activityName: activity.name,
                 };
             })
         );
