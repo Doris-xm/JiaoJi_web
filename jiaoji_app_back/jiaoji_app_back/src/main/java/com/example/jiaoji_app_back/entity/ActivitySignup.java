@@ -1,67 +1,78 @@
 package com.example.jiaoji_app_back.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Data
 @Table(name = "activity_signup", schema = "jiaoji", catalog = "")
-@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class ActivitySignup {
-
-//    public enum StateEnum {
-//        SIGNED,  1
-//        PASSED,  2
-//        REJECTED, 3
-//        PARTICIPATED, 4
-//        COMMENTED 5
-//    }
-
-    @Id
-    @Column(name = "serial")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int serial;
+    public enum SIGNUP_STATE {
+        Signed,
+        Passed,
+        Rejected,
+        Participated,
+        Commented
+    }
     @Basic
     @Column(name = "user_id")
-    private int userId;
-
+    private Integer userId;
     @Basic
     @Column(name = "act_id")
-    private int actId;
+    private Integer actId;
     @Basic
     @Column(name = "state")
-    private int state;
+    private Integer state;
     @Basic
     @Column(name = "comment")
     private Integer comment;
     @Basic
     @Column(name = "comment_detail")
     private String commentDetail;
+    @Basic
+    @Column(name = "comment_photo")
+    private String commentPhoto;
+    @Basic
+    @Column(name = "posted")
+    private Integer posted;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "serial")
+    private int serial;
 
-    public int getUserId() {
+    public ActivitySignup(Integer userId, Integer actId) {
+        this.userId = userId;
+        this.actId = actId;
+        this.state = SIGNUP_STATE.Signed.ordinal();
+        this.comment = -1;
+        this.commentDetail = null;
+        this.commentPhoto = null;
+        this.posted = 0;
+    }
+    public ActivitySignup(){
+
+    }
+
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getActId() {
+    public Integer getActId() {
         return actId;
     }
 
-    public void setActId(int actId) {
+    public void setActId(Integer actId) {
         this.actId = actId;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -81,26 +92,40 @@ public class ActivitySignup {
         this.commentDetail = commentDetail;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        ActivitySignup that = (ActivitySignup) o;
-//        return userId == that.userId && actId == that.actId && Objects.equals(state, that.state) && Objects.equals(comment, that.comment) && Objects.equals(commentDetail, that.commentDetail);
-//    }
-    public ActivitySignup(Integer userId, Integer actId, int signed, Integer i, String o) {
-        this.userId = userId;
-        this.actId = actId;
-        this.state = signed;
-        this.comment = i;
-        this.commentDetail = o;
+    public String getCommentPhoto() {
+        return commentPhoto;
     }
 
-    public ActivitySignup() {
-
+    public void setCommentPhoto(String commentPhoto) {
+        this.commentPhoto = commentPhoto;
     }
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(userId, actId, state, comment, commentDetail);
-//    }
+
+    public Integer getPosted() {
+        return posted;
+    }
+
+    public void setPosted(Integer posted) {
+        this.posted = posted;
+    }
+
+    public int getSerial() {
+        return serial;
+    }
+
+    public void setSerial(int serial) {
+        this.serial = serial;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActivitySignup that = (ActivitySignup) o;
+        return serial == that.serial && Objects.equals(userId, that.userId) && Objects.equals(actId, that.actId) && Objects.equals(state, that.state) && Objects.equals(comment, that.comment) && Objects.equals(commentDetail, that.commentDetail) && Objects.equals(commentPhoto, that.commentPhoto) && Objects.equals(posted, that.posted);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, actId, state, comment, commentDetail, commentPhoto, posted, serial);
+    }
 }

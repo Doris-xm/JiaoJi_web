@@ -40,3 +40,23 @@ export const submitPhoto = async (data) => {
     // localStorage.setItem("user", JSON.stringify(data.data));
     // history.push("/HomeView");
 }
+
+/*
+* @Brief: 获取发布在广场上的评论
+* 用于交集广场
+* */
+export const getPostedMoment = async () => {
+    let posters = null;
+    try {
+        const response = await fetch(`/api/poster`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        posters = await response.json();
+    } catch (error) {
+        console.error("Error fetching posters:", error);
+    }
+    return posters;
+}

@@ -6,6 +6,8 @@ import com.example.jiaoji_app_back.repository.SignupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class SignupDaoImpl implements SignupDao {
     @Autowired
@@ -15,8 +17,12 @@ public class SignupDaoImpl implements SignupDao {
         if(signupRepository.existsActivitySignupByUserIdAndActId(userId,actId)){
             return false;
         }
-        signupRepository.save(new ActivitySignup(userId,actId,1,-1,null));
+        signupRepository.save(new ActivitySignup(userId,actId));
         return true;
+    }
+    @Override
+    public List<ActivitySignup> getPostedSignUpList(){
+        return signupRepository.findAllByPostedIs(1);
     }
 
 }

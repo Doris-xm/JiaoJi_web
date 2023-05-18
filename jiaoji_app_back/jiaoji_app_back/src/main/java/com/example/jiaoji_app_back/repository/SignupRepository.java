@@ -13,4 +13,6 @@ public interface SignupRepository extends JpaRepository<ActivitySignup,Integer> 
 
     List<ActivitySignup> findActivityByUserId(Integer userId);
 
+    List<ActivitySignup> findAllByPostedIs(Integer posted);
+
 }

@@ -103,7 +103,7 @@ const HomeView = () => {
                                 <Link to="/myactivity">我的活动</Link>
                             </Menu.Item>
                             <Menu.Item key="moment">
-                                <Link to="/moment">朋友圈</Link>
+                                <Link to="/moment">交集广场</Link>
                             </Menu.Item>
                             {/*<Menu.Item key="chat">*/}
                             {/*    <Link to="/chat">聊天室</Link>*/}
