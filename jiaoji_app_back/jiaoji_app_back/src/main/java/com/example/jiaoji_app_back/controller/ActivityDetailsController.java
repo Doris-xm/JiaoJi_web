@@ -62,6 +62,44 @@ public class ActivityDetailsController {
         String comments = (String) body.get("comments");
         return activityService.changeStatus(id, status,comments);
     }
+
+    @PostMapping("/release")
+    public Message release(@RequestBody Map<String,Object> body){
+        Long userId = Long.valueOf(body.get("userId").toString());
+        String name = (String) body.get("name");
+        String content = (String) body.get("content");
+        String location = (String) body.get("location");
+        String signupTime = (String) body.get("signupTime");
+        String activityTime = (String) body.get("activityTime");
+        String departments = (String) body.get("departments");
+        String signupRestriction = (String) body.get("signupRestriction");
+        String college = (String) body.get("college");
+        String grade = (String) body.get("grade");
+        String club = (String) body.get("club");
+        Long recruitmentNumber = Long.valueOf(body.get("recruitmentNumber").toString());
+        Long remainingNumber = recruitmentNumber;
+        String organizer = (String) body.get("organizer");
+        Long suScore = Long.valueOf(body.get("suScore").toString());
+        Long laborHour = Long.valueOf(body.get("laborHour").toString());
+        Integer status = ActivityDetails.Status.TODO.ordinal();
+        String comments = null;
+        String photo = "https://th.bing.com/th/id/R.785580b0aa9cce1c7e016db5ee2e078e?rik=ebpuQj03uKxGQg&riu=http%3a%2f%2fphotos.tuchong.com%2f255820%2ff%2f2852945.jpg&ehk=8sZ0LLnnaIXhdwT1M5Zk2xrfIMFcE%2bV45Nc1839Gj7Y%3d&risl=&pid=ImgRaw&r=0";
+
+        //获取activity_details表行数
+
+
+        Message message = activityService.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo);
+        Long rowCount = activityService.getActivityCount();
+        activityService.addReleaseRecord(Math.toIntExact(userId), Math.toIntExact(rowCount));
+        return message;
+    }
+        @RequestMapping("/my_release_activities")
+        public Message findMyRelease(@RequestParam("userId") Integer userId){
+    //        return new Message("ok",true,null);
+            return activityService.findMyRelease(userId);
+        }
+
+
 //    @PostMapping("/handleSignup")
 //    public Message handleSignup(@RequestBody Map<String,Object> body){
 //        Long userId = Long.valueOf(body.get("userId").toString());
@@ -98,4 +136,6 @@ public class ActivityDetailsController {
 //    }
 
 
+
 }
+

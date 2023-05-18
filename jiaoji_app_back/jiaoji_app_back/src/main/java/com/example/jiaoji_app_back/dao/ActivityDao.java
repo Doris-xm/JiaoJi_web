@@ -2,6 +2,7 @@ package com.example.jiaoji_app_back.dao;
 
 import com.example.jiaoji_app_back.entity.ActivityDetails;
 import com.example.jiaoji_app_back.entity.ActivityResponse;
+import com.example.jiaoji_app_back.entity.ActivityRelease;
 import com.example.jiaoji_app_back.entity.ActivitySignup;
 
 import java.util.ArrayList;
@@ -9,18 +10,25 @@ import java.util.List;
 
 public interface ActivityDao {
 
-    public List<ActivityDetails> getAllActivities();
+     List<ActivityDetails> getAllActivities();
 
-    public List<ActivityResponse> getMyActivities(int userId) ;
+     List<ActivityResponse> getMyActivities(int userId) ;
 
-    public  List<ActivityDetails> getPassedActivity();
+     List<ActivityDetails> getPassedActivity();
 
-    public  ActivityDetails changeStatus(Long id, Integer status, String comments);
+      ActivityDetails changeStatus(Long id, Integer status, String comments);
 
-    public  void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
+      void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
 
-    public ActivityDetails getActivityById(Long activityId);
+     ActivityDetails getActivityById(Long activityId);
 
-    public List<ActivityDetails> searchActivity(String keyword);
+     List<ActivityDetails> searchActivity(String keyword);
+    void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments,String photo);
+
+    void addReleaseRecord(Integer userId, Integer num);
+
+    Long getActivityCount();
+
+    List<ActivityRelease> findMyRelease(Integer userId);
 
 }

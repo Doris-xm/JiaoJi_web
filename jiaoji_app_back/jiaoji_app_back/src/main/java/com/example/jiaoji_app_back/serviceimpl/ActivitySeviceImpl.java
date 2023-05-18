@@ -2,6 +2,7 @@ package com.example.jiaoji_app_back.serviceimpl;
 
 import com.example.jiaoji_app_back.dao.ActivityDao;
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivityRelease;
 import com.example.jiaoji_app_back.entity.ActivityResponse;
 import com.example.jiaoji_app_back.utils.msgutils.Message;
 import com.example.jiaoji_app_back.service.ActivityService;
@@ -53,4 +54,31 @@ public class ActivitySeviceImpl implements ActivityService {
     public List<ActivityDetails> searchActivity(String keyword){
         return activityDao.searchActivity(keyword);
     }
+    @Override
+    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
+        activityDao.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club
+                ,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo);
+
+        return new Message("发布成功",true,null);
+    }
+
+    @Override
+    public void addReleaseRecord(Integer userId,Integer num) {
+        activityDao.addReleaseRecord(userId,num);
+
+    }
+    @Override
+    public Long getActivityCount(){
+        return activityDao.getActivityCount();
+    }
+    @Override
+    public Message findMyRelease(Integer userId){
+        List<ActivityRelease> activityDetailsList = activityDao.findMyRelease(userId);
+        if(activityDetailsList!= null){
+            return new Message("获取我发布的活动成功",true,activityDetailsList);
+        }else{
+            return new Message("获取我发布的活动",false,null);
+        }
+    }
+
 }

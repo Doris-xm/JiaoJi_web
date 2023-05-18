@@ -34,12 +34,12 @@ const MomentCard: React.FC = ({moment}  ) => {
             <Skeleton loading={loading} avatar active>
                 <Meta
                     avatar={<Avatar src={moment.avatar} />}
-                    title={moment.title}
-                    description={moment.description}
+                    title={moment.nickname}
+                    description={moment.commentDetail}
                 />
                 <div  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img style={{width: '80%',marginTop: 16}}
-                         src={moment.photo}
+                         src={moment.commentPhoto}
                     />
                 </div>
 

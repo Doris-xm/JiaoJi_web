@@ -15,5 +15,8 @@ public interface ActivityService {
 
     public ActivityDetails getActivityById(Long activityId);
     public List<ActivityDetails> searchActivity(String keyword);
-
+    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo);
+    public void addReleaseRecord(Integer userId,Integer num);
+    public Long getActivityCount();
+    Message findMyRelease(Integer userId);
 }

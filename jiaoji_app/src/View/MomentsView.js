@@ -6,9 +6,8 @@ import '../css/backgroud.css'
 import { InboxOutlined, PlusOutlined} from "@ant-design/icons";
 import PostMoment from "../Component/Moment/PostMoment";
 import {getPostedMoment} from "../Services/MomentService";
-import {getUser} from "../Services/UserService";
-import {getMyActivities} from "../Services/ActivitySevice";
-
+import {getUser, getUserById} from "../Services/UserService";
+import moment from "moment/moment";
 const { Meta } = Card;
 
 const MomentList = [
@@ -48,9 +47,20 @@ class MomentsView  extends React.Component {
     }
 
     async componentDidMount() {
-        const userId = getUser().userId;
-        const fetchedActivities = await getMyActivities(userId);
-        this.setState({posters: fetchedActivities});
+        // const userId = getUser().userId;
+        const fetchedPoster = await getPostedMoment();
+
+        const posters = await Promise.all(
+            fetchedPoster.map(async (value) => {
+                const user = await getUserById(value.userId);
+                return {
+                    ...value,
+                    avatar: user.avatar,
+                    nickname: user.nickname
+                };
+            })
+        );
+        this.setState({posters: posters});
     }
     render() {
         return (
@@ -83,7 +93,7 @@ class MomentsView  extends React.Component {
                         width: "100%",
                         alignItems: "center",
                     }}>
-                        {MomentList.map((moment) => (
+                        {this.state.posters.map((moment) => (
                             <MomentCard moment={moment} />
                         ))}
                     </div>

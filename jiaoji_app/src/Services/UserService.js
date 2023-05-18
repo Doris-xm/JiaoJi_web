@@ -45,3 +45,20 @@ export const getUser = () => {
 export const createUser = (data, callback) => {
     return null;
 };
+
+export const  getUserById = async (userId) => {
+    let user = null;
+    try {
+        const response = await fetch(`/api/user?userId=${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        user = await response.json();
+        console.log("find user", user);
+    } catch (error) {
+        console.error("Error fetching user:", error);
+    }
+    return user;
+};

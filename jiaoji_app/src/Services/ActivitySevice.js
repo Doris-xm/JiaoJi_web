@@ -142,3 +142,26 @@ export const searchActivities = async (keyword) => {
     }
     return activity;
 }
+
+export const getMyReleaseActivities = async (userId) => {
+    let activities = null;
+    console.log("userId", userId);
+    try {
+        const response = await fetch(`/api/my_release_activities?userId=${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        const data = await response.json(); // 解析响应数据
+        if (response.ok) {
+            activities = data.data; // 获取数据数组
+            console.log("My activities", activities);
+        } else {
+            console.error("Error fetching activities:", data.msg);
+        }
+    } catch (error) {
+        console.error("Error fetching activities:", error);
+    }
+    return activities;
+};
