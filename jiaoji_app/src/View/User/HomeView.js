@@ -3,13 +3,13 @@ import React, { useState } from "react";
 // import ActivityList from "../../Component/ActivityList";
 // import PersonView from "../PersonView";
 import ActivityView from "../ActivityView";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes, useLocation} from "react-router-dom";
 import "../../css/HomeView.css";
 import ChatView from "../ChatView";
 import InfoView from "../InfoView";
 import MomentsView from "../MomentsView";
 import { UserOutlined } from "@ant-design/icons";
-import {getUser} from "../../Services/UserService";
+import {getUser, jaccountProfile, sendToken} from "../../Services/UserService";
 import { Button, Avatar } from "antd";
 import ActivityDetail from "../DetailView";
 import MyActivity from "./MyActivity";
@@ -25,9 +25,41 @@ const { Search } = Input;
  */
 const HomeView = () => {
     const [selectedKey, setSelectedKey] = useState("home");
+    const [isLoading3, setIsLoading3] = useState(true);
+
+    const location = useLocation();
+
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get('code');
+
+    console.log("code");
+    console.log(code);
+
+    if (isLoading3 && code !== null) {
+        // 发送POST请求以获取访问令牌
+        jaccountProfile(code, (data) => {
+            console.log("accesstokenbody here!");
+            console.log(data);
+            console.log("accesskeyhere");
+            console.log(data.access_token);
+            sendToken(data.access_token, (data2) => {
+                console.log("data2 here");
+                console.log(data2);
+                // localStorage.setItem('user', JSON.stringify(data2));
+                // setIsLoading3(false);
+                // window.location.reload();
+            });
+
+            setIsLoading3(false);
+        });
+    }
+
 
     const handleMenuClick = ({ key }) => {
         setSelectedKey(key);
+    };
+    const handleJaccountLogin=()=> {
+        window.location.href = "https://jaccount.sjtu.edu.cn/oauth2/authorize?response_type=code&scope=profile&client_id=ov3SLrO4HyZSELxcHiqS&redirect_uri=http://localhost:3000";
     };
 
     const [user, setUser] = useState({});
@@ -123,6 +155,9 @@ const HomeView = () => {
                                 />
                                 <Button type="link" href="/login" >
                                     点击登录
+                                </Button>
+                                <Button onClick={handleJaccountLogin} type="link" >
+                                    第三方登录
                                 </Button>
                             </>
                         ) : (

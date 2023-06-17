@@ -6,6 +6,7 @@ import * as userService from "../Services/UserService";
 import { useNavigate } from "react-router-dom";
 import CreateUserForm from "../Component/CreateUserForm";
 import { Modal } from "antd";
+import {history} from "../utils/history";
 
 const LoginView = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,12 @@ const LoginView = () => {
     });
     setShowCreateUserForm(false);
   };
+  const handleCostomer = () => {
+    localStorage.removeItem("user");
+    // console.log("logout button is clicked");
+    history.push("/");
+    window.location.reload();
+  }
 
   const showCreateUserModal = () => setShowCreateUserForm(true);
 
@@ -67,6 +74,17 @@ const LoginView = () => {
                   className="login-btn"
               >
                 登 陆
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                  type="primary"
+                  onClick={handleCostomer}
+                  loading={loading}
+                  style={{ width: "100%" }}
+                  className="login-btn"
+              >
+                游 客 登 陆
               </Button>
             </Form.Item>
             <Form.Item>

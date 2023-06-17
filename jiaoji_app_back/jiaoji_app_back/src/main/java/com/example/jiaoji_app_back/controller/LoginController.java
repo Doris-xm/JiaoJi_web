@@ -53,8 +53,6 @@ public class LoginController {
             obj.put(Constant.CLUB, user.getClub());
             obj.put(Constant.GRADE, user.getGrade());
 
-
-
             JSONObject data = JSONObject.fromObject(obj);
 
             return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);

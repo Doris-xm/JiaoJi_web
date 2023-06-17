@@ -1,7 +1,8 @@
-import { postRequest, postRequest_v2 } from "../utils/ajax";
+import { postRequest, postRequest_v2} from "../utils/ajax";
 import { history } from "../utils/history";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 /**
  * avatar :
@@ -79,4 +80,53 @@ export const  getUserById = async (userId) => {
         console.error("Error fetching user:", error);
     }
     return user;
+};
+
+export const jaccountProfile = (code, callback) => {
+    const url = '/api/jaccountProfile';
+
+    const data = new URLSearchParams();
+    data.append('grant_type', 'authorization_code');
+    data.append('redirect_uri', 'http://localhost:3000');
+    data.append('client_id', 'ov3SLrO4HyZSELxcHiqS');
+    data.append('client_secret', 'B9919DDA3BD9FBF7ADB9F84F67920D8CB6528620B9586D1C');
+    data.append('code', code);
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
+
+    axios.post(url, data.toString(), config)
+        .then(response => {
+            const responseData = response.data;
+            console.log("userService")
+            localStorage.setItem("accessdata", JSON.stringify(responseData));
+            console.log("responseData");
+            console.log(responseData);
+            callback(responseData);
+        })
+        .catch(error => {
+            console.error(error);
+            // handle error
+        });
+};
+
+export const  sendToken = async (token) => {
+    const body = {
+        AccessToken: token,
+    };
+    const url = `/api/profile`;
+    const callback = (data) => {
+        if (data.status >= 0) {
+            localStorage.setItem("user", JSON.stringify(data.data));
+            console.log(data.data);
+            message.success(data.msg);
+            window.location.reload();
+        } else {
+            message.error(data.msg);
+        }
+    };
+    return postRequest(url, body, callback);
 };

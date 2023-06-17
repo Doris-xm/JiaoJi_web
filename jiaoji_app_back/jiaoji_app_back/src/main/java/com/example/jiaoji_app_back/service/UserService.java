@@ -17,4 +17,5 @@ public interface UserService {
     User getUserByUserName(String username);
     boolean createNewUser(User user);
     boolean createNewUserAuth(UserAuth userAuth);
+    UserAuth getUserAuthByUserId(Integer userId);
 }

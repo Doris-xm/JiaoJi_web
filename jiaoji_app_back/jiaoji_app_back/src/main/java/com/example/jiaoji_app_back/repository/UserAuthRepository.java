@@ -12,5 +12,6 @@ public interface UserAuthRepository extends JpaRepository<UserAuth,String>{
     UserAuth checkUser(@Param("username") String username, @Param("password") String password);
 
     UserAuth findUserAuthByUserId(Integer userId);
+    UserAuth findUserAuthByUsername(String username);
 
 }

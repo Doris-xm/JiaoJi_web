@@ -44,4 +44,8 @@ public class UserServiceImpl implements UserService {
     public boolean createNewUserAuth(UserAuth userAuth) {
         return userDao.createNewUserAuth(userAuth);
     }
+    @Override
+    public UserAuth getUserAuthByUserId(Integer userId) {
+        return userDao.getUserAuthByUserId(userId);
+    }
 }
