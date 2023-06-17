@@ -32,4 +32,16 @@ public class UserServiceImpl implements UserService {
     public boolean isAdmin(Integer userId) {
         return userDao.isAdmin(userId);
     }
+    @Override
+    public User getUserByUserName(String username) {
+        return userDao.getUserByUserName(username);
+    }
+    @Override
+    public boolean createNewUser(User user) {
+        return userDao.createNewUser(user);
+    }
+    @Override
+    public boolean createNewUserAuth(UserAuth userAuth) {
+        return userDao.createNewUserAuth(userAuth);
+    }
 }

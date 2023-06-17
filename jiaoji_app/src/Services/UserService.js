@@ -42,8 +42,27 @@ export const getUser = () => {
     }
 };
 
-export const createUser = (data, callback) => {
-    return null;
+export const createUser = (data) => {
+    const url = `/api/newUser`;
+    const callback = (data) => {
+        if (data.status >= 0) {
+            message.success(data.msg);
+        } else {
+            message.error(data.msg);
+        }
+    };
+    postRequest(url, data, callback);
+};
+
+export const checkNewName = (data) => {
+    const body = {
+        username: data,
+    };
+    const url = `/api/checkUsername`;
+    const callback = (data) => {
+        return data.status >= 0;
+    };
+    return postRequest(url, body, callback);
 };
 
 export const  getUserById = async (userId) => {

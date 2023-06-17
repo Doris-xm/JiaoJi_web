@@ -20,8 +20,9 @@ const LoginView = () => {
   const onCreateUserFinish = async (values) => {
     console.log("Received values of form: ", values);
     await userService.createUser(values).then((result) => {
-      console.log(result);
+    console.log(result);
     });
+    setShowCreateUserForm(false);
   };
 
   const showCreateUserModal = () => setShowCreateUserForm(true);
@@ -29,7 +30,8 @@ const LoginView = () => {
   return (
       <div className="login-view-container">
         <div className="login-form-container">
-          <h1>Welcome Back</h1>
+          <h1>交   集</h1>
+          <h4 style={{ textAlign: 'right' }}>—— 连接你与世界</h4>
           <Form
               name="normal_login"
               initialValues={{ remember: true }}
@@ -38,22 +40,22 @@ const LoginView = () => {
           >
             <Form.Item
                 name="username"
-                rules={[{ required: true, message: "Please input your Username!" }]}
+                rules={[{ required: true, message: "请输入用户名!" }]}
             >
               <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Username"
+                  placeholder="用户名"
               />
             </Form.Item>
 
             <Form.Item
                 name="password"
-                rules={[{ required: true, message: "Please input your Password!" }]}
+                rules={[{ required: true, message: "请输入密码!" }]}
             >
               <Input.Password
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
-                  placeholder="Password"
+                  placeholder="密码"
               />
             </Form.Item>
             <Form.Item>
@@ -64,14 +66,14 @@ const LoginView = () => {
                   style={{ width: "100%" }}
                   className="login-btn"
               >
-                Log in
+                登 陆
               </Button>
             </Form.Item>
             <Form.Item>
-              <a href="#" onClick={showCreateUserModal}>
-                Create an account
-              </a>{" "}
-              | <a href="#">Forget password</a>
+              <a href="#" >
+                第三方登陆
+              </a>{"  "}
+               | <a href="#" onClick={showCreateUserModal}>新注册用户</a>
             </Form.Item>
           </Form>
           <Modal

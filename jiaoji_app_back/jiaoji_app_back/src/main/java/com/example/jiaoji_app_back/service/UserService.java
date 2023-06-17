@@ -14,4 +14,7 @@ public interface UserService {
     List<User> getAllUsers();
 
     boolean isAdmin(Integer userId);
+    User getUserByUserName(String username);
+    boolean createNewUser(User user);
+    boolean createNewUserAuth(UserAuth userAuth);
 }

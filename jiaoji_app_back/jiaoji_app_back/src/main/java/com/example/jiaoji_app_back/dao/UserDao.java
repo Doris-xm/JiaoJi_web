@@ -11,5 +11,7 @@ public interface UserDao {
     User getUserByUserId(Integer userId);
     List<User> getAllUsers();
     boolean isAdmin(Integer userId);
-
+    User getUserByUserName(String username);
+    boolean createNewUser(User user);
+    boolean createNewUserAuth(UserAuth userAuth);
 }
