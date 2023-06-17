@@ -27,13 +27,32 @@ const ReleaseForm = ({ ActivityId }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleConfirmSignUp = (formData) => {
         console.log(ActivityId);
-        const requestData = {
-            "userId":0,
-            ...formData,
-            "status":1,
-            "photo":"jdnxwjdxj"
+        const { name, content, location, signupTime, activityTime, departments, college, grade, club, recruitmentNumber, organizer, suScore, laborHour } = formData;
 
+        // 判断是否有输入报名年级限制，学院限制，社团限制
+        const gradeRestriction = grade !== "" ? grade : null;
+        const collegeRestriction = college !== "" ? college : -1;
+        const clubRestriction = club !== "" ? club : null;
+
+        const requestData = {
+            userId: 0,
+            name,
+            content,
+            location,
+            signupTime,
+            activityTime,
+            departments,
+            grade: gradeRestriction,
+            college: collegeRestriction,
+            club: clubRestriction,
+            recruitmentNumber,
+            organizer,
+            suScore,
+            laborHour,
+            status: 1,
+            photo: "jdnxwjdxj",
         };
+
         console.log(requestData);
 
         // 发送请求等其他逻辑...
@@ -169,24 +188,24 @@ const ReleaseForm = ({ ActivityId }) => {
                             >
                                 <Input />
                             </Form.Item>
-                            <Form.Item
-                                label="活动报名限制"
-                                name="signupRestriction"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "请输入活动报名限制！",
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
+                            {/*<Form.Item*/}
+                            {/*    label="活动报名限制"*/}
+                            {/*    name="signupRestriction"*/}
+                            {/*    rules={[*/}
+                            {/*        {*/}
+                            {/*            required: true,*/}
+                            {/*            message: "请输入活动报名限制！",*/}
+                            {/*        },*/}
+                            {/*    ]}*/}
+                            {/*>*/}
+                            {/*    <Input />*/}
+                            {/*</Form.Item>*/}
                             <Form.Item
                                 label="报名学院限制"
                                 name="college"
                                 rules={[
                                     {
-                                        required: true,
+                                        required: false,
                                         message: "请输入报名学院限制！",
                                     },
                                 ]}
@@ -198,7 +217,7 @@ const ReleaseForm = ({ ActivityId }) => {
                                 name="grade"
                                 rules={[
                                     {
-                                        required: true,
+                                        required: false,
                                         message: "请输入报名年级限制！",
                                     },
                                 ]}
@@ -210,7 +229,7 @@ const ReleaseForm = ({ ActivityId }) => {
                                 name="club"
                                 rules={[
                                     {
-                                        required: true,
+                                        required: false,
                                         message: "请输入报名社团限制！",
                                     },
                                 ]}
