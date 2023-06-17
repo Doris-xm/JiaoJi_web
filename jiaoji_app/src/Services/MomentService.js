@@ -1,10 +1,11 @@
 import {message} from "antd";
 import {postRequest} from "../utils/ajax";
-export const submitMoment = (data) => {
+export const submitMoment = (data,onPosted) => {
     const url = `/api/post`;
     const callback = (data) => {
         if (data.status >= 0) {
             message.success("发布成功！");
+            onPosted();
         } else {
             message.error("发布失败！");
         }

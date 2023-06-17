@@ -52,6 +52,12 @@ public class MomentController {
         String comment_detail = params.get(Constant.COMMENT_DETAIL);
         String comment_photo = params.get(Constant.COMMENT_PHOTO);
         String post_time = params.get(Constant.POST_TIME);
+        System.out.println(userId);
+        System.out.println(actId);
+        System.out.println(comment);
+        System.out.println(comment_detail);
+        System.out.println(comment_photo);
+        System.out.println(post_time);
 
         if(signUpService.postMoment(Integer.parseInt(userId),Integer.parseInt(actId),Integer.parseInt(comment),comment_detail,comment_photo,post_time)){
             return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.SIGNUP_SUCCESS_MSG);

@@ -32,3 +32,11 @@ TODO：
 \+ com.example.jiaoji_app_back.constant.ActivityClass：常数定义
 
 +++ 在UserService一套中加了getAll方法
+
+---
+
+17：52
+
+修改了SignUpDaoImp和Repository关于朋友圈发布的函数
+
+修改了前端Moment所有，发布的时候可以更新，按时间排序

@@ -8,7 +8,7 @@ import {getMyActivities} from "../../Services/ActivitySevice";
 import {getUser} from "../../Services/UserService";
 
 const desc = ['不好', '一般', '中立', '不错', '很好'];
-const PostMoment = () => {
+const PostMoment = ({onPosted}) => {
     const [open, setOpen] = useState(false);
     const [placement] = useState('top');
     const [moment, setMoment] = useState({
@@ -22,14 +22,13 @@ const PostMoment = () => {
     useEffect( () => {
         (async function asyncFunc() {
             const activities = await getMyActivities(user.userId);
-            console.log(activities)
             const options = activities.map(activity => ({
-                value: activity.actId,
-                label: activity.name,
+                value: activity.activityDetails.id,
+                label: activity.activityDetails.name,
             }));
             setOptions(options);
         })();
-    }, [options, user.userId]);
+    }, [user.userId]);
     const handleImageUpload = names => {
         setMoment({
             ...moment,
@@ -43,25 +42,42 @@ const PostMoment = () => {
     const onClose = () => {
         setOpen(false);
     };
-    const onCommit = () => {
+    const onCommit = async () => {
         const time = getCurrentTime();
         // 发送moment对象到后端进行保存
-        console.log(comment.images)
-        submitMoment(({userId: user.userId, activityId: moment.activityId,
-            comment:moment.comment,commentDetail:moment.text,
-            commentPhoto:comment.images,postTime:time }));
-        setMoment({ text: '', images: [] });
+        console.log(moment)
+        if (moment.activityId === undefined) {
+            message.error("请选择需要评价的活动");
+            return;
+        }
+
+        await submitMoment({
+            userId: user.userId,
+            activityId: moment.activityId,
+            comment: moment.comment,
+            commentDetail: moment.text,
+            commentPhoto: comment.images,
+            postTime: time
+        },onPosted);
+
+        setMoment({text: '', images: []});
         setOpen(false);
     };
     const onChangeChoice = (value) => {
-        console.log(value);
         const activityId = value[0];
         setMoment({
             ...moment,
             activityId: activityId,
-            comment: comment
+            comment,
         });
-        console.log(moment);
+    };
+    const onChangeComment = (value) => {
+        console.log("comment",value);
+        setComment(value);
+        setMoment({
+            ...moment,
+            comment: value,
+        });
     };
 
     const displayRender = (labels) => labels[labels.length - 1];
@@ -110,7 +126,7 @@ const PostMoment = () => {
                 />
                 <br/>
                 <span>
-                 <Rate tooltips={desc} onChange={setComment} value={comment} />
+                 <Rate tooltips={desc} onChange={onChangeComment} value={comment} />
                     {comment ? <span className="ant-rate-text">{desc[comment - 1]}</span> : ''}
                 </span>
                 <br/>  <br/>

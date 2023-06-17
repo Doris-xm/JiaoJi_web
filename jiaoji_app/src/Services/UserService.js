@@ -56,7 +56,6 @@ export const  getUserById = async (userId) => {
             },
         });
         user = await response.json();
-        console.log("find user", user);
     } catch (error) {
         console.error("Error fetching user:", error);
     }

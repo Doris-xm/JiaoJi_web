@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
  * 点赞功能未显示多少人点赞
  * 评论功能未开发
  */
-const MomentCard: React.FC = ({moment}  ) => {
+const MomentCard: React.FC = ({moment}) => {
     const [loading, setLoading] = useState(false);
     const [liked, setLiked] = useState(false);
     if( !moment.avatar.includes("http")){

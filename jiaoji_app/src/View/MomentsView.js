@@ -23,6 +23,30 @@ class MomentsView  extends React.Component {
         this.state = { posters: [] , user: getUser()};
 
     }
+    handlePostMoment = async () => {
+        const fetchedPoster = await getPostedMoment();
+        console.log("fetchedPoster",fetchedPoster)
+
+        const posters = await Promise.all(
+            fetchedPoster.map(async (value) => {
+                const activity = await getActivityByID(value.actId);
+                const user = await getUserById(value.userId);
+                return {
+                    ...value,
+                    avatar: user.avatar,
+                    nickname: user.nickname,
+                    activityName: activity.name,
+                };
+            })
+        );
+        posters.sort((a, b) => {
+            // 将时间字符串直接进行比较
+            return b.postTime.localeCompare(a.postTime);
+        });
+        this.setState({posters: posters});
+
+        console.log("posted",this.state.posters)
+    };
 
 
     async componentDidMount() {
@@ -41,9 +65,13 @@ class MomentsView  extends React.Component {
                 };
             })
         );
+        posters.sort((a, b) => {
+            // 将时间字符串直接进行比较
+            return b.postTime.localeCompare(a.postTime);
+        });
         this.setState({posters: posters});
     }
-    render() {
+    render = () => {
         return (
             <Layout style={{
                 width:"100%",
@@ -61,8 +89,7 @@ class MomentsView  extends React.Component {
                     alignItems: "center",
                 }}
                 >
-                    {this.state.user && <PostMoment />}
-                    {/*<PostMoment />*/}
+                    {this.state.user && <PostMoment onPosted={this.handlePostMoment}/>}
                 </Header>
 
                 <Content
