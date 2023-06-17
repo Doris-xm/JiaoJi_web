@@ -36,4 +36,8 @@ public class SignupDaoImpl implements SignupDao {
         signupRepository.save(activitySignup);
         return true;
     }
+    @Override
+    public List<ActivitySignup> getSignedUser(Integer actId){
+        return signupRepository.getSignedUser(actId);
+    }
 }

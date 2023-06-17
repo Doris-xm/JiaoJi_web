@@ -11,4 +11,5 @@ public interface SignUpService {
 
     boolean postMoment(Integer userID, Integer actId, Integer comment, String content, String imgPath,String time);
 
+    List<ActivitySignup> getSignedUser(Integer userId);
 }

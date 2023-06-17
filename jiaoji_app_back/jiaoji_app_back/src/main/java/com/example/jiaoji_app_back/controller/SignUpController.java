@@ -40,6 +40,7 @@ package com.example.jiaoji_app_back.controller;
 
 import com.example.jiaoji_app_back.constant.Constant;
 import com.example.jiaoji_app_back.entity.ActivityDetails;
+import com.example.jiaoji_app_back.entity.ActivitySignup;
 import com.example.jiaoji_app_back.entity.User;
 import com.example.jiaoji_app_back.service.ActivityService;
 import com.example.jiaoji_app_back.service.SignUpService;
@@ -51,6 +52,8 @@ import com.example.jiaoji_app_back.utils.msgutils.MsgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -101,5 +104,22 @@ public class SignUpController {
         }else{
             return new Message("请勿重复报名",false,null);
         }
+    }
+    @PostMapping("/getSignedUser")
+    public Message getSignedUser(@RequestBody Map<String,Object> body){
+        Integer actId = Integer.valueOf(body.get("actId").toString());
+        System.out.println(actId);
+        List<ActivitySignup> userList = signUpService.getSignedUser(actId);
+        List<User> users = new ArrayList<>();
+
+        if(userList!=null){
+            //遍历
+            for (ActivitySignup activitySignup : userList) {
+                // 对每个ActivitySignup对象执行操作
+                users.add(userService.getUserByUserId(activitySignup.getUserId()));
+            }
+        }
+        System.out.println(users);
+        return new Message("获取报名学生信息成功",true,users);
     }
 }
