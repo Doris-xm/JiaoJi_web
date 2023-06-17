@@ -1,6 +1,9 @@
 package com.example.jiaoji_app_back.entity;
 
+import com.example.jiaoji_app_back.service.ActivityService;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity

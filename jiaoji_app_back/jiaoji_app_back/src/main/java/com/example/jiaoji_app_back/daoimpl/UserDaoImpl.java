@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 @Repository
@@ -29,5 +30,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByUserId(Integer userId) {
         return userRepository.findByUserId(userId);
+    }
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public boolean isAdmin(Integer userId) {
+        UserAuth userAuth = userAuthRepository.findUserAuthByUserId(userId);
+        return userAuth.getUserType() == 1;
     }
 }

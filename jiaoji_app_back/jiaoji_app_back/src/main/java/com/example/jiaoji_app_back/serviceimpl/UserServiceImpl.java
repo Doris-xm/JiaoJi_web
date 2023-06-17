@@ -7,6 +7,8 @@ import com.example.jiaoji_app_back.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -21,5 +23,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUserId(Integer userId) {
         return userDao.getUserByUserId(userId);
+    }
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+    @Override
+    public boolean isAdmin(Integer userId) {
+        return userDao.isAdmin(userId);
     }
 }

@@ -55,7 +55,7 @@ public class ActivitySeviceImpl implements ActivityService {
         return activityDao.searchActivity(keyword);
     }
     @Override
-    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
+    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
         activityDao.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club
                 ,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo);
 

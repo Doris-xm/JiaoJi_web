@@ -34,7 +34,7 @@ public class ActivityDetails {
     private String departments;
     private String signupRestriction;
     private String college;
-    private String grade;
+    private Integer grade;
     private String club;
     private Long recruitmentNumber;
     private Long remainingNumber;
@@ -44,8 +44,9 @@ public class ActivityDetails {
     private Integer status;
     private String comments;
     private String photo;
+    private String type;
 
-    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo) {
+    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer  grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo, String type) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -65,6 +66,7 @@ public class ActivityDetails {
         this.status = status;
         this.comments = comments;
         this.photo = photo;
+        this.type = type;
     }
 
 

@@ -36,15 +36,15 @@ public class ActivityDaoImpl implements ActivityDao {
         for (ActivitySignup activitySignup : activitySignups) {
             long activityId = (long)activitySignup.getActId();
             ActivityDetails activityDetails = activityDetailsRepository.findById(activityId);
-            activityResponses.add(new ActivityResponse(activitySignup.getUserId(),
-                    activitySignup.getActId(),
-                    activitySignup.getState(),
-                    activitySignup.getComment(),
-                    activitySignup.getCommentDetail(),
-                    activityDetails.getName(),
-                    activityDetails.getActivityTime(),
-                    activityDetails.getPhoto()));
-
+//            activityResponses.add(new ActivityResponse(activitySignup.getUserId(),
+//                    activitySignup.getActId(),
+//                    activitySignup.getState(),
+//                    activitySignup.getComment(),
+//                    activitySignup.getCommentDetail(),
+//                    activityDetails.getName(),
+//                    activityDetails.getActivityTime(),
+//                    activityDetails.getPhoto()));
+            activityResponses.add(new ActivityResponse(activitySignup,activityDetails));
         }
         return activityResponses;
     }
@@ -84,7 +84,7 @@ public class ActivityDaoImpl implements ActivityDao {
         return activityDetailsRepository.findAllByNameContainingOrContentContainingOrCollegeContainingOrClubContainingAndStatusGreaterThan(keyword,keyword,keyword,keyword,ActivityDetails.Status.TODO.ordinal());
     }
     @Override
-    public void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, String grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
+    public void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
         ActivityDetails activityDetails = new ActivityDetails();
         activityDetails.setName(name);
         activityDetails.setContent(content);

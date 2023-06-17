@@ -12,25 +12,31 @@ import javax.persistence.Column;
 @Data
 public class ActivityResponse {
 
-    private int userId;
-    private int actId;
-    private int state;
-    private int comment;
-    private String commentDetail;
-    private String name;
-    private String activityTime;
-    private String photo;
-
-
-    public ActivityResponse(int userId, int actId, int state, int comment, String comments1, String name, String activityTime, String photo) {
-        this.userId = userId;
-        this.actId = actId;
-        this.state = state;
-        this.comment = comment;
-        this.commentDetail = comments1;
-        this.name = name;
-        this.activityTime = activityTime;
-        this.photo = photo;
+//    private int userId;
+//    private int actId;
+//    private int state;
+//    private int comment;
+//    private String commentDetail;
+//    private String name;
+//    private String activityTime;
+//    private String photo;
+//
+//
+//    public ActivityResponse(int userId, int actId, int state, int comment, String comments1, String name, String activityTime, String photo) {
+//        this.userId = userId;
+//        this.actId = actId;
+//        this.state = state;
+//        this.comment = comment;
+//        this.commentDetail = comments1;
+//        this.name = name;
+//        this.activityTime = activityTime;
+//        this.photo = photo;
+//    }
+    private ActivitySignup activitySignup;
+    private ActivityDetails activityDetails;
+    public ActivityResponse(ActivitySignup activitySignup, ActivityDetails activityDetails) {
+        this.activitySignup = activitySignup;
+        this.activityDetails = activityDetails;
     }
 
 }

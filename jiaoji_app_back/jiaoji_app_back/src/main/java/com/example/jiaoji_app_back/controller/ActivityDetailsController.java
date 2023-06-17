@@ -1,6 +1,7 @@
 /*author: qyl*/
 package com.example.jiaoji_app_back.controller;
 
+import com.example.jiaoji_app_back.algorithm.Recommend;
 import com.example.jiaoji_app_back.constant.Constant;
 import com.example.jiaoji_app_back.entity.ActivityDetails;
 import com.example.jiaoji_app_back.entity.ActivityResponse;
@@ -21,10 +22,17 @@ import java.util.Objects;
 public class ActivityDetailsController {
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private Recommend recommend_algorithm;
     private final ActivityDetailsRepository activityDetailsRepository;
 
     public ActivityDetailsController(ActivityDetailsRepository activityDetailsRepository) {
         this.activityDetailsRepository = activityDetailsRepository;
+    }
+
+    @RequestMapping("/recommend")
+    public List<ActivityResponse> getRecommend(@RequestParam("userId") int id) {
+        return  recommend_algorithm.recommend(id);
     }
 
     @RequestMapping("/activity")
@@ -74,7 +82,7 @@ public class ActivityDetailsController {
         String departments = (String) body.get("departments");
         String signupRestriction = (String) body.get("signupRestriction");
         String college = (String) body.get("college");
-        String grade = (String) body.get("grade");
+        Integer grade = Integer.parseInt((String) body.get("grade"));
         String club = (String) body.get("club");
         Long recruitmentNumber = Long.valueOf(body.get("recruitmentNumber").toString());
         Long remainingNumber = recruitmentNumber;
