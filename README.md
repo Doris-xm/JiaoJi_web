@@ -18,3 +18,15 @@ TODO：
 4. 百度地图接入
 5. Jaccount接口
 6. 推荐算法
+
+
+
+---
+
+2023.6.17 
+
+\+ com.example.jaoji_app_back.algorithm.Recommend：推荐算法
+
+\+ com.example.jiaoji_app_back.constant.ActivityClass：常数定义
+
++++ 在UserService一套中加了getAll方法
