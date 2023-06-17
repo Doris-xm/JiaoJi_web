@@ -7,10 +7,10 @@ import {postRequest} from "../utils/ajax";
 export function postSignupData(requestData) {
     const url = `/api/signup`;
     const callback = (data) => {
-        if (data.status >= 0) {
+        if (data.ok) {
             message.success(data.msg);
         } else {
-            message.error("请勿重复报名");
+            message.error(data.msg);
         }
     };
     postRequest(url, requestData, callback);

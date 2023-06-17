@@ -16,6 +16,7 @@ class MyActivity  extends React.Component {
                 const userId = getUser().userId;
                 const fetchedActivities = await getMyActivities(userId);
                 this.setState({myActivities: fetchedActivities});
+                console.log("MY",this.state.myActivities);
             }
             render() {
                 return(
@@ -31,23 +32,23 @@ class MyActivity  extends React.Component {
                         }}
                         renderItem={(activity) => (
                             <List.Item>
-                                <Link to={`/activity/${activity.actId}`}>
+                                <Link to={`/activity/${activity.activityDetails.id}`}>
                                     <Card
                                         cover={<img alt={default_url}
-                                                    src={activity.photo? activity.photo: default_url}
+                                                    src={activity.activityDetails.photo? activity.activityDetails.photo: default_url}
                                                     style={{width: "95%", margin: "0 auto"}}/>}
-                                        title={activity.name}
+                                        title={activity.activityDetails.name}
 
                                     >
-                                        <Card.Meta description={activity.description}/>
-                                        活动时间：{activity.activityTime}
+                                        <Card.Meta description={activity.activityDetails.description}/>
+                                        活动时间：{activity.activityDetails.activityTime}
                                         <br/>
                                         <br/>
-                                        {states[activity.state]}
+                                        {states[activity.activitySignup.state]}
                                         <br/>
                                         <br/>
-                                        {activity.state === 4 && <Button>评价活动</Button>}
-                                        {activity.state === 5 && <Button>修改评价</Button>}
+                                        {activity.activitySignup.state === 4 && <Button>评价活动</Button>}
+                                        {activity.activitySignup.state === 5 && <Button>修改评价</Button>}
                                     </Card>
                                 </Link>
                             </List.Item>

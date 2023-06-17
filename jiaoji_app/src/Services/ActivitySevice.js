@@ -165,3 +165,25 @@ export const getMyReleaseActivities = async (userId) => {
     }
     return activities;
 };
+
+/*
+* @Brief: 获取推荐活动
+* @Param: userId 用户id
+* */
+export const getRecommendActivities = async (userId) => {
+    console.log("userId recommend",userId)
+    let activities = null;
+    try {
+        const response = await fetch(`/api/recommend?userId=${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        activities = await response.json();
+        console.log("recommend", activities);
+    } catch (error) {
+        console.error("Error fetching activity:", error);
+    }
+    return activities;
+}
