@@ -14,10 +14,10 @@ TODO：
 
 - [x] 注册功能
 - [x] 报名限制
-- [ ] 界面美化
-- [ ] 软件测试
+- [x] 界面美化
+- [x] 软件测试
 - [ ] websocket时事评论
-- [ ] 百度地图接入
+- [x] 百度地图接入
 - [x] Jaccount接口
 - [x] 推荐算法
 - [ ] 数据库清理
@@ -26,7 +26,7 @@ TODO：
 
 ---
 
-2023.6.17 
+2023.6.17 12：10
 
 \+ com.example.jaoji_app_back.algorithm.Recommend：推荐算法
 
@@ -54,3 +54,6 @@ Jaccout完全实现，新用户自动注册，默认密码为Jaccout用户名
 
 **TODO：Jaccout登录没有封装，登陆界面链接未实现**
 
+6:35
+
+单元测试controller类

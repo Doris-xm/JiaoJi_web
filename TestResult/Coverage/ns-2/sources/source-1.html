@@ -1,0 +1,246 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Recommend</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.jiaoji_app_back.algorithm</a>
+</div>
+
+<h1>Coverage Summary for Class: Recommend (com.example.jiaoji_app_back.algorithm)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Recommend</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (56/56)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.jiaoji_app_back.algorithm;
+&nbsp;
+&nbsp;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityResponse;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivitySignup;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityDetails;
+&nbsp;import com.example.jiaoji_app_back.entity.User;
+&nbsp;import com.example.jiaoji_app_back.service.ActivityService;
+&nbsp;import com.example.jiaoji_app_back.service.UserService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;import com.example.jiaoji_app_back.constant.ActivityClass;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;import java.util.stream.IntStream;
+&nbsp;@RestController
+<b class="fc">&nbsp;public class Recommend {</b>
+&nbsp;    /**
+&nbsp;     * 在给定user_id的情况下，计算其他用户和它的距离并排序
+&nbsp;     * @param userId
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    @Autowired
+&nbsp;    private ActivityService activityService;
+&nbsp;    @Autowired
+&nbsp;    private UserService userService;
+&nbsp;    private Map&lt;Double, Integer&gt; computeNearestNeighbor(int userId, List&lt;User&gt; users) {
+<b class="fc">&nbsp;        Map&lt;Double, Integer&gt; distances = new TreeMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        User u1 = new User();</b>
+<b class="fc">&nbsp;        for (User user:users) {</b>
+<b class="fc">&nbsp;            if (userId == user.getUserId()) {</b>
+<b class="fc">&nbsp;                u1 = user;</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; users.size(); i++) {</b>
+<b class="fc">&nbsp;            User u2 = users.get(i);</b>
+&nbsp;
+<b class="fc">&nbsp;            if (userId != u2.getUserId() &amp;&amp; ! userService.isAdmin(u2.getUserId())) {</b>
+<b class="fc">&nbsp;                double distance = pearson_dis(u2.getUserId(), u1.getUserId());</b>
+<b class="fc">&nbsp;                distances.put(distance, u2.getUserId());</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        System.out.println(&quot;该用户与其他用户的皮尔森相关系数 -&gt; &quot; + distances);</b>
+<b class="fc">&nbsp;        return distances;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Integer&gt; parseEigenvector(Integer userId) {
+<b class="fc">&nbsp;        List&lt;Integer&gt; eigenVector = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        List&lt;ActivityResponse&gt; activityResponses = activityService.getMyActivityList(userId);</b>
+&nbsp;        // 初始化特征向量为0
+<b class="fc">&nbsp;        for (int i = 0; i &lt; ActivityClass.NUM_OF_CLASS; i++) {</b>
+<b class="fc">&nbsp;            eigenVector.add(0);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        for(ActivityResponse activityResponse:activityResponses){</b>
+<b class="fc">&nbsp;            ActivityDetails activityDetails = activityResponse.getActivityDetails();</b>
+<b class="fc">&nbsp;            String typeString = activityDetails.getType();</b>
+<b class="fc">&nbsp;            if(typeString == null) continue;</b>
+<b class="fc">&nbsp;            String[] typeArray = typeString.split(&quot;,&quot;);</b>
+<b class="fc">&nbsp;            for (String type : typeArray) {</b>
+<b class="fc">&nbsp;                int index = Integer.parseInt(type.trim()); //活动类型</b>
+&nbsp;
+<b class="fc">&nbsp;                int count = eigenVector.get(index);</b>
+<b class="fc">&nbsp;                eigenVector.set(index, count + 1);</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        return eigenVector;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 计算2个用户报名活动类型之间的pearson距离
+&nbsp;     * 选择公式四进行计算
+&nbsp;     * @param userId1
+&nbsp;     * @param userId2
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    private double pearson_dis(int userId1, int userId2) {
+<b class="fc">&nbsp;        List&lt;Integer&gt; eigenVector1 = parseEigenvector(userId1);</b>
+<b class="fc">&nbsp;        List&lt;Integer&gt; eigenVector2 = parseEigenvector(userId2);</b>
+&nbsp;
+<b class="fc">&nbsp;        int n = ActivityClass.NUM_OF_CLASS;</b>
+<b class="fc">&nbsp;        double Ex = eigenVector1.stream().mapToDouble(x -&gt; x).sum();</b>
+<b class="fc">&nbsp;        double Ey = eigenVector2.stream().mapToDouble(y -&gt; y).sum();</b>
+<b class="fc">&nbsp;        double Ex2 = eigenVector1.stream().mapToDouble(x -&gt; Math.pow(x, 2)).sum();</b>
+<b class="fc">&nbsp;        double Ey2 = eigenVector2.stream().mapToDouble(y -&gt; Math.pow(y, 2)).sum();</b>
+<b class="fc">&nbsp;        double Exy = IntStream.range(0, n).mapToDouble(i -&gt; eigenVector1.get(i) * eigenVector2.get(i)).sum();</b>
+<b class="fc">&nbsp;        double numerator = Exy - Ex * Ey / n;</b>
+<b class="fc">&nbsp;        double denominator = Math.sqrt((Ex2 - Math.pow(Ex, 2) / n) * (Ey2 - Math.pow(Ey, 2) / n));</b>
+&nbsp;
+<b class="fc">&nbsp;        if (denominator == 0) {</b>
+<b class="fc">&nbsp;            return 0.0;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return numerator / denominator;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public List&lt;ActivityResponse&gt; recommend(Integer userId) {
+&nbsp;        //找到最近邻
+<b class="fc">&nbsp;        List&lt;User&gt; users = userService.getAllUsers();</b>
+<b class="fc">&nbsp;        Map&lt;Double, Integer&gt; distances = computeNearestNeighbor(userId, users);</b>
+<b class="fc">&nbsp;        Integer nearest = distances.values().iterator().next();</b>
+<b class="fc">&nbsp;        System.out.println(&quot;最近邻 -&gt; &quot; + nearest);</b>
+&nbsp;
+&nbsp;        // 找到最近邻参加过但用户未参加的活动，进行推荐
+&nbsp;//        User neighborRatings = null;
+&nbsp;//        for (User user : users) {
+&nbsp;//            if (nearest.equals(user.getUserId())) {
+&nbsp;//                neighborRatings = user;
+&nbsp;//                break;
+&nbsp;//            }
+&nbsp;//        }
+<b class="fc">&nbsp;        List&lt;ActivityResponse&gt; neighborActivityList = activityService.getMyActivityList(nearest);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;最近邻参加过的活动 -&gt; &quot; + neighborActivityList);</b>
+&nbsp;
+&nbsp;//        User userRatings = null;
+&nbsp;//        for (User user : users) {
+&nbsp;//            if (userId.equals(user.getUserId())) {
+&nbsp;//                userRatings = user;
+&nbsp;//                break;
+&nbsp;//            }
+&nbsp;//        }
+<b class="fc">&nbsp;        List&lt;ActivityResponse&gt; userActivityList = activityService.getMyActivityList(userId);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;用户参加过的活动 -&gt; &quot; + userActivityList);</b>
+&nbsp;
+&nbsp;        // 根据自己和邻居的活动计算推荐的活动
+<b class="fc">&nbsp;        List&lt;ActivityResponse&gt; recommendedActivities = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (ActivityResponse activityResponse : neighborActivityList) {</b>
+<b class="fc">&nbsp;            if (!userActivityList.contains(activityResponse)) {</b>
+<b class="fc">&nbsp;                recommendedActivities.add(activityResponse);</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return recommendedActivities;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-18 12:10</div>
+</div>
+</body>
+</html>

@@ -26,15 +26,15 @@ const DateReminder = () => {
 
 const getListData = (value) => {
     const events = activities.filter((activity) =>
-      moment(activity.activityTime, 'YYYY-MM-DD HH:mm:ss').month() === value.month() &&
-      moment(activity.activityTime, 'YYYY-MM-DD HH:mm:ss').date() === value.date()
+      moment(activity.activityDetails.activityTime, 'YYYY-MM-DD HH:mm:ss').month() === value.month() &&
+      moment(activity.activityDetails.activityTime, 'YYYY-MM-DD HH:mm:ss').date() === value.date()
     );
-    return events.map((event) => ({ id: event.actId, content: event.name }));
+    return events.map((event) => ({ id: event.activitySignup.actId, content: event.activityDetails.name }));
   };
 
 const getMonthData = (value) => {
   const events = activities.filter((activity) =>
-      moment(activity.activityTime, 'YYYY-MM-DD HH:mm:ss').month() === value.month()
+      moment(activity.activityDetails.activityTime, 'YYYY-MM-DD HH:mm:ss').month() === value.month()
     );
     return events.length;
 };

@@ -69,9 +69,9 @@ const ManageActivityView = ({ activity }) => {
             content:<div>
                 <Radio.Group
                     onChange={(e) => {activity.status = e.target.value;}}
-                    defaultValue={STATUS.PASS}
+                    defaultValue={STATUS.TODO}
                 >
-                    <Radio value={STATUS.PASS}>通过</Radio>
+                    <Radio value={STATUS.TODO}>通过</Radio>
                     <Radio value={STATUS.REJECTED}>驳回</Radio>
                 </Radio.Group>
                 <br/>
@@ -88,7 +88,7 @@ const ManageActivityView = ({ activity }) => {
             closable: true,
             icon: null,
             onOk: () => {
-                activity.status === STATUS.TODO ? activity.status = STATUS.PASS : activity.status = STATUS.REJECTED;
+                activity.status === STATUS.NOT_RELEASE ? activity.status = STATUS.TODO : activity.status = STATUS.REJECTED;
                 console.log(activity.status);
                 fetch('/api/changeStatus', {
                     method: 'POST',
@@ -132,7 +132,7 @@ const ManageActivityView = ({ activity }) => {
                 tabList={tabList}
                 activeTabKey={activeTabKey}
                 onTabChange={onTabChange}
-                tabBarExtraContent={activity.status === STATUS.TODO ?
+                tabBarExtraContent={activity.status === STATUS.NOT_RELEASE ?
                     <Button type="primary" onClick={() => handleClick(activity)}>
                         审核
                     </Button>

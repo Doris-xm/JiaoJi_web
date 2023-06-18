@@ -110,7 +110,7 @@ const HomeView = () => {
             <Layout className="background">
                 <Header
                     style={{
-                        backgroundColor: "rgb(240,248,255)",
+                        backgroundColor: "#ffffff",
                         display: "flex",
                         justifyContent: "space-between",
                         // alignItems: "center"

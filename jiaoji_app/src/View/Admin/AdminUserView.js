@@ -1,12 +1,40 @@
-import { Button, Descriptions, Radio,Empty, Image } from "antd";
+// 0617
+import { Button,Empty, Image , Card, List} from "antd";
 import { useState } from "react";
 import { getUserByUserId } from "../../Services/UserService";
+import "../../css/profileView.css";
 
 const AdminUserView = () => {
 
     const user = JSON.parse(localStorage.getItem("user"));
     console.log(user);
 
+    const data = [
+        {
+            title: '用户名',
+            description: user.username,
+        },
+        {
+            title: '昵称',
+            description: user.nickname,
+        },
+        {
+            title: '年级',
+            description: user.grade,
+        },
+        {
+            title: '性别',
+            description: user.gender === 0 ? '女' : '男',
+        },
+        {
+            title: '邮箱',
+            description: user.mail,
+        },
+        {
+            title: '电话',
+            description: user.phone,
+        },
+    ];
 
     return (
         <div>
@@ -17,28 +45,48 @@ const AdminUserView = () => {
             ):(
                 <div>
                     <br />
-                    <Descriptions
-                        bordered
-                        title=""
-                        style={{ width: "80%", margin: "auto", lineHeight: "2em" }}
+                    <br />
+                    <Card
+                        className="profile"
+                        bodyStyle={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '100%',
+                        }}
                     >
-                        <Descriptions.Item label="Avatar" span={3}>
-                            <Image src={user.avatar} style={{ maxWidth: "120px", maxHeight: "120px" }} />
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Name">{user.nickname}</Descriptions.Item>
-                        <Descriptions.Item label="Grade">{user.grade}</Descriptions.Item>
-                        <Descriptions.Item label="Gender">
-                            {user.gender === 0 ? '女' : '男'}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Student ID">{user.stu_id}</Descriptions.Item>
-                        <Descriptions.Item label="Email">{user.mail}</Descriptions.Item>
-                        <Descriptions.Item label="Phone">{user.phone}</Descriptions.Item>
-                        <Descriptions.Item label="College">{user.college}</Descriptions.Item>
-                        <Descriptions.Item label="Club">{user.club}</Descriptions.Item>
-                        
-                    </Descriptions>
-                    <br />
-                    <br />
+                        <img
+                            src={user.avatar}
+                            alt="头像"
+                            style={{
+                                width: "30%",
+                                marginRight: '100px',
+                            }}
+                        />
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            style={{ width: '100%' }}
+                            renderItem={(item) => (
+                                <List.Item style={{ width: '100%' }}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                        }}
+                                    >
+                                        <div style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                                            {item.title}
+                                        </div>
+                                        <div style={{ marginLeft: '16px', fontSize: '14px' }}>
+                                            {item.description}
+                                        </div>
+                                    </div>
+                                </List.Item>
+                            )}
+                        />
+                    </Card>
                 </div>
             )}
         </div>

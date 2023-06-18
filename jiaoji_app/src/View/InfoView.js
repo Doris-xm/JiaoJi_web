@@ -33,8 +33,8 @@ const InfoView = () => {
                         <UserInfo/>
                         <h1 className="h1"> 未来日程</h1>
                         <DateReminder />
-                        <h1 className="h1"> 消息通知</h1>
-                        <Notification />
+                        {/*<h1 className="h1"> 消息通知</h1>*/}
+                        {/*<Notification />*/}
                     </Content>
                 </div>
             )

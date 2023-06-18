@@ -45,8 +45,11 @@ public class ActivityDetails {
     private String comments;
     private String photo;
     private String type;
+    private double lng;
+    private double lat;
 
-    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer  grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo, String type) {
+
+    public ActivityDetails(Long id, String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer  grade, String club, Long recruitmentNumber, Long remainingNumber,String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo, String type, double lng, double lat) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -67,6 +70,8 @@ public class ActivityDetails {
         this.comments = comments;
         this.photo = photo;
         this.type = type;
+        this.lng = lng;
+        this.lat = lat;
     }
 
 

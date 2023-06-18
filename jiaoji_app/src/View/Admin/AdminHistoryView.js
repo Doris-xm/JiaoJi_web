@@ -33,7 +33,7 @@ class AdminHistoryView extends React.Component {
                 <h1>已通过</h1>
                 <List
                     grid={{ gutter: 16, column: 1 }}
-                    dataSource={this.state.activities.filter((activity) => activity.status === STATUS.PASS)}
+                    dataSource={this.state.activities.filter((activity) => activity.status >= STATUS.TODO)}
                     renderItem={(activity) => (
                         <List.Item>
                             <AdminActivity activity={activity} />

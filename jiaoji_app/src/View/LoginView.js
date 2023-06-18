@@ -88,7 +88,7 @@ const LoginView = () => {
               </Button>
             </Form.Item>
             <Form.Item>
-              <a href="#" >
+              <a href="https://jaccount.sjtu.edu.cn/oauth2/authorize?response_type=code&scope=profile&client_id=ov3SLrO4HyZSELxcHiqS&redirect_uri=http://localhost:3000" >
                 第三方登陆
               </a>{"  "}
                | <a href="#" onClick={showCreateUserModal}>新注册用户</a>

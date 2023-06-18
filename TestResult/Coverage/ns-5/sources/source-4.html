@@ -1,0 +1,285 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ActivitySignup</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.jiaoji_app_back.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: ActivitySignup (com.example.jiaoji_app_back.entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ActivitySignup</td>
+<td class="coverageStat">
+  <span class="percent">
+    78.3%
+  </span>
+  <span class="absValue">
+    (18/23)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70.7%
+  </span>
+  <span class="absValue">
+    (29/41)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ActivitySignup$HibernateProxy$d0trj7og</td>
+  </tr>
+  <tr>
+    <td class="name">ActivitySignup$SIGNUP_STATE</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    79.2%
+  </span>
+  <span class="absValue">
+    (19/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    74.5%
+  </span>
+  <span class="absValue">
+    (35/47)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.jiaoji_app_back.entity;
+&nbsp;
+&nbsp;import javax.persistence.*;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;activity_signup&quot;, schema = &quot;jiaoji&quot;, catalog = &quot;&quot;)
+&nbsp;public class ActivitySignup {
+<b class="fc">&nbsp;    public enum SIGNUP_STATE {</b>
+<b class="fc">&nbsp;        Signed,</b>
+<b class="fc">&nbsp;        Passed,</b>
+<b class="fc">&nbsp;        Rejected,</b>
+<b class="fc">&nbsp;        Participated,</b>
+<b class="fc">&nbsp;        Commented</b>
+&nbsp;    }
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;user_id&quot;)
+&nbsp;    private Integer userId;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;act_id&quot;)
+&nbsp;    private Integer actId;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;state&quot;)
+&nbsp;    private Integer state;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;comment&quot;)
+&nbsp;    private Integer comment;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;comment_detail&quot;)
+&nbsp;    private String commentDetail;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;comment_photo&quot;)
+&nbsp;    private String commentPhoto;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;posted&quot;)
+&nbsp;    private Integer posted;
+&nbsp;
+&nbsp;    @Basic
+&nbsp;    @Column(name = &quot;post_time&quot;)
+&nbsp;    private String postTime;
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    @Id
+&nbsp;    @Column(name = &quot;serial&quot;)
+&nbsp;    private int serial;
+&nbsp;
+<b class="fc">&nbsp;    public ActivitySignup(Integer userId, Integer actId) {</b>
+<b class="fc">&nbsp;        this.userId = userId;</b>
+<b class="fc">&nbsp;        this.actId = actId;</b>
+<b class="fc">&nbsp;        this.state = SIGNUP_STATE.Signed.ordinal();</b>
+<b class="fc">&nbsp;        this.comment = -1;</b>
+<b class="fc">&nbsp;        this.commentDetail = null;</b>
+<b class="fc">&nbsp;        this.commentPhoto = null;</b>
+<b class="fc">&nbsp;        this.posted = 0;</b>
+<b class="fc">&nbsp;        this.postTime = null;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    public ActivitySignup(){</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    public void postMoment(Integer userID,Integer actId,Integer comment,String content,String imgPath, String time){
+<b class="nc">&nbsp;        this.userId = userID;</b>
+<b class="nc">&nbsp;        this.actId = actId;</b>
+<b class="nc">&nbsp;        this.comment = comment;</b>
+<b class="nc">&nbsp;        this.commentDetail = content;</b>
+<b class="nc">&nbsp;        this.commentPhoto = imgPath;</b>
+<b class="nc">&nbsp;        this.posted = 1;</b>
+<b class="nc">&nbsp;        this.state = SIGNUP_STATE.Commented.ordinal();</b>
+<b class="nc">&nbsp;        this.postTime = time;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getUserId() {
+<b class="fc">&nbsp;        return userId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserId(Integer userId) {
+<b class="nc">&nbsp;        this.userId = userId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getActId() {
+<b class="fc">&nbsp;        return actId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setActId(Integer actId) {
+<b class="nc">&nbsp;        this.actId = actId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getState() {
+<b class="fc">&nbsp;        return this.state;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setState(Integer state) {
+<b class="nc">&nbsp;        this.state = state;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getComment() {
+<b class="fc">&nbsp;        return comment;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setComment(Integer comment) {
+<b class="fc">&nbsp;        this.comment = comment;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getCommentDetail() {
+<b class="fc">&nbsp;        return commentDetail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCommentDetail(String commentDetail) {
+<b class="fc">&nbsp;        this.commentDetail = commentDetail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getCommentPhoto() {
+<b class="fc">&nbsp;        return commentPhoto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCommentPhoto(String commentPhoto) {
+<b class="fc">&nbsp;        this.commentPhoto = commentPhoto;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getPosted() {
+<b class="fc">&nbsp;        return posted;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPosted(Integer posted) {
+<b class="fc">&nbsp;        this.posted = posted;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPostTime(){
+<b class="fc">&nbsp;        return postTime;</b>
+&nbsp;    }
+&nbsp;    public void setPostTime(String postTime){
+<b class="fc">&nbsp;        this.postTime = postTime;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getSerial() {
+<b class="fc">&nbsp;        return serial;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSerial(int serial) {
+<b class="nc">&nbsp;        this.serial = serial;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="fc">&nbsp;        if (this == o) return true;</b>
+<b class="fc">&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc">&nbsp;        ActivitySignup that = (ActivitySignup) o;</b>
+<b class="fc">&nbsp;        return serial == that.serial &amp;&amp; Objects.equals(userId, that.userId) &amp;&amp; Objects.equals(actId, that.actId) &amp;&amp; Objects.equals(state, that.state) &amp;&amp; Objects.equals(comment, that.comment) &amp;&amp; Objects.equals(commentDetail, that.commentDetail) &amp;&amp; Objects.equals(commentPhoto, that.commentPhoto) &amp;&amp; Objects.equals(posted, that.posted);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="fc">&nbsp;        return Objects.hash(userId, actId, state, comment, commentDetail, commentPhoto, posted, serial);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-18 12:10</div>
+</div>
+</body>
+</html>

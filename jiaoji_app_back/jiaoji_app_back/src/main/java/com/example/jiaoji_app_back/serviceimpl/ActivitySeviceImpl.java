@@ -55,9 +55,9 @@ public class ActivitySeviceImpl implements ActivityService {
         return activityDao.searchActivity(keyword);
     }
     @Override
-    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
+    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo, double lng, double lat){
         activityDao.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club
-                ,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo);
+                ,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo, lng, lat);
 
         return new Message("发布成功",true,null);
     }
@@ -65,7 +65,6 @@ public class ActivitySeviceImpl implements ActivityService {
     @Override
     public void addReleaseRecord(Integer userId,Integer num) {
         activityDao.addReleaseRecord(userId,num);
-
     }
     @Override
     public Long getActivityCount(){

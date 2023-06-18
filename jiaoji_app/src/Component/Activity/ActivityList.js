@@ -75,14 +75,17 @@ class ActivityList  extends React.Component {
                         </List.Item>
                     )}
                 />}
-            <Search
-                placeholder="input search text"
-                allowClear
-                enterButton="Search"
-                size="large"
-                onSearch={this.handleSearch}
-                style={{ width: 500, height: 60, margin: "20px auto" }}
-            />
+                <div className="SearchContainer"
+                     style={{width:"100%", display:"flex"}}>
+                    <Search
+                        placeholder="请输入搜索关键词..."
+                        allowClear
+                        enterButton="Search"
+                        size="large"
+                        onSearch={this.handleSearch}
+                        style={{ width:"600px", height: "60px", margin: "auto" }}
+                    />
+                </div>
             <List
                 style={{margin: "20px"}}
                 grid={{gutter: 16, column: 4}}
@@ -99,7 +102,7 @@ class ActivityList  extends React.Component {
                             <Card
                                 cover={<img alt={default_url}
                                         src={activity.photo? activity.photo: default_url}
-                                            style={{width: "95%", margin: "0 auto"}}/>}
+                                            style={{width: "95%", margin: "0 auto", aspectRatio: "3/2"}}/>}
                                 title={activity.name}
 
                             >

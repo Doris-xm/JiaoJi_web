@@ -32,6 +32,7 @@ public class SignupDaoImpl implements SignupDao {
         activitySignup.setComment(comment);
         activitySignup.setCommentDetail(content);
         activitySignup.setCommentPhoto(imgPath);
+        activitySignup.setPostTime(time);
 //        activitySignup.postMoment(userID,actId,comment,content,imgPath,time);
         signupRepository.save(activitySignup);
         return true;

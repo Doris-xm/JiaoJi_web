@@ -3,6 +3,7 @@ import { Card as AntCard } from "antd";
 import "../../css/ActivityDetail.css";
 import {useNavigate, useParams} from "react-router-dom";
 import {getActivityByID} from "../../Services/ActivitySevice";
+import MapDisplay from "../Map/MapDisplay";
 // 00000000
 const ActivityDetails = () => {
     const {activityId} = useParams();
@@ -30,12 +31,16 @@ const ActivityDetails = () => {
             {/*    <InfoWindow position={{lng: 121.449, lat:31.029}} text="软件学院" title="活动地点"/>*/}
             {/*    <NavigationControl />*/}
             {/*</Map>*/}
-            <AntCard className="activity-card ant-card-hoverable">
+            <AntCard className="activity-card ant-card-hoverable" style={{minWidth:"800px"}}>
                 <div className="ant-card-head">
                     <h2 className="ant-card-head-title">{activity.name}</h2>
                 </div>
                 <div className="ant-card-body">
                     <p>{activity.content}</p>
+                    <div style={{width:"100%" ,display:"flex", padding:"0"}}>
+                        <MapDisplay latitude={activity.lat} longitude={activity.lng} name={activity.location}
+                                    style={{margin:"0 auto"}}/>
+                    </div>
                     <ul>
                         <li>地点：{activity.location}</li>
                         <li>报名时间：{activity.signupTime}</li>

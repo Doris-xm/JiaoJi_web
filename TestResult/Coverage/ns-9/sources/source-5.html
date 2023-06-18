@@ -1,0 +1,138 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ActivityDetailsRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.jiaoji_app_back.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: ActivityDetailsRepository (com.example.jiaoji_app_back.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ActivityDetailsRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//package com.example.jiaoji_app_back.repository;
+&nbsp;//
+&nbsp;//import com.example.jiaoji_app_back.entity.ActivityDetails;
+&nbsp;//
+&nbsp;//import java.util.List;
+&nbsp;//
+&nbsp;//public interface ActivityDetailsRepository {
+&nbsp;//
+&nbsp;//    List&lt;ActivityDetails&gt; findAllActivity();
+&nbsp;//    List&lt;ActivityDetails&gt; findPassedActivity();
+&nbsp;//
+&nbsp;//    ActivityDetails changeStatus(Long id, String status, String comments);
+&nbsp;//
+&nbsp;//    ActivityDetails handleSignup(Long userId, Long activityId);
+&nbsp;//
+&nbsp;//    ActivityDetails getPassedActivityById(Long activityId);
+&nbsp;//    ActivityDetails getActivityById(Long activityId);
+&nbsp;//
+&nbsp;//    void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
+&nbsp;//}
+&nbsp;
+&nbsp;package com.example.jiaoji_app_back.repository;
+&nbsp;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityDetails;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivitySignup;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Repository
+&nbsp;public interface ActivityDetailsRepository extends JpaRepository&lt;ActivityDetails,Integer&gt; {
+&nbsp;    ActivityDetails findById(Long activityId);
+&nbsp;    List&lt;ActivityDetails&gt; findAll();
+&nbsp;
+&nbsp;    List&lt;ActivityDetails&gt; findAllByStatusGreaterThanEqualAndStatusLessThan(Integer startStatus, Integer endStatus);
+&nbsp;    List&lt;ActivityDetails&gt; findByStatus(ActivityDetails.Status Status);
+&nbsp;    List&lt;ActivityDetails&gt; findAllByNameContainingOrContentContainingOrCollegeContainingOrClubContainingAndStatusGreaterThan(String keyword1,String keyword2,String keyword3,String keyword4,Integer status);
+&nbsp;
+&nbsp;    long count();
+&nbsp;//    @Modifying
+&nbsp;//    @Transactional
+&nbsp;//    @Query(value = &quot;INSERT INTO activity_details (name, content, location, signupTime, activityTime, departments, signupRestriction, college, grade, club, recruitmentNumber, remainingNumber, organizer, suScore, laborHour, status, comments,photo) &quot; +
+&nbsp;//            &quot;VALUES ( :name, :content, :location, :signupTime, :activityTime, :departments, :signupRestriction, :college, :grade, :club, :recruitmentNumber, :remainingNumber, :organizer, :suScore, :laborHour, :status, :comments,:photo)&quot;,
+&nbsp;//            nativeQuery = true)
+&nbsp;//    void insertRecord( @Param(&quot;name&quot;) String name, @Param(&quot;content&quot;) String content,
+&nbsp;//                       @Param(&quot;location&quot;) String location, @Param(&quot;signupTime&quot;) String signupTime,
+&nbsp;//                       @Param(&quot;activityTime&quot;) String activityTime, @Param(&quot;departments&quot;) String departments,
+&nbsp;//                       @Param(&quot;signupRestriction&quot;) String signupRestriction, @Param(&quot;college&quot;) String college,
+&nbsp;//                       @Param(&quot;grade&quot;) String grade, @Param(&quot;club&quot;) String club,
+&nbsp;//                       @Param(&quot;recruitmentNumber&quot;) Integer recruitmentNumber, @Param(&quot;remainingNumber&quot;) Integer remainingNumber,
+&nbsp;//                       @Param(&quot;organizer&quot;) String organizer, @Param(&quot;suScore&quot;) Integer suScore,
+&nbsp;//                       @Param(&quot;laborHour&quot;) Integer laborHour, @Param(&quot;status&quot;) Integer status,
+&nbsp;//                       @Param(&quot;comments&quot;) String comments,@Param(&quot;photo&quot;)String photo);
+&nbsp;//
+&nbsp;
+&nbsp;//    @Modifying
+&nbsp;//    @Transactional
+&nbsp;//    @Query(value = &quot;INSERT INTO activity_release (user_id,act_id) &quot; +
+&nbsp;//            &quot;VALUES ( :user_id, :act_id)&quot;,
+&nbsp;//            nativeQuery = true)
+&nbsp;//    void addReleaseRecord(@Param(&quot;user_id&quot;)Integer userId,@Param(&quot;act_id&quot;) Integer num);
+&nbsp;
+&nbsp;
+&nbsp;//    @Transactional
+&nbsp;//    @Query(value = &quot;SELECT COUNT(*) FROM activity_details&quot;, nativeQuery = true)
+&nbsp;//    Long getActivityCount();
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-18 12:10</div>
+</div>
+</body>
+</html>

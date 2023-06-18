@@ -22,6 +22,8 @@ public class MsgUtil {
     public static final String NOT_LOGGED_IN_ERROR_MSG = "登录失效，请重新登录！";
     public static final String SIGNUP_SUCCESS_MSG = "报名成功！";
     public static final String SIGNUP_FAIL_MSG = "请勿重复报名！";
+    public static final String RELEASE_FAIL_MSG = "发布失败";
+    public static final String RELEASE_SUCCESS_MSG = "发布成功";
 
 
     public static Msg makeMsg(MsgCode code, JSONObject data){

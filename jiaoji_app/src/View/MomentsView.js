@@ -66,9 +66,15 @@ class MomentsView  extends React.Component {
             })
         );
         posters.sort((a, b) => {
-            // 将时间字符串直接进行比较
-            return b.postTime.localeCompare(a.postTime);
+            // 检查 postTime 是否存在并非空
+            if (a.postTime && b.postTime) {
+                // 将时间字符串直接进行比较
+                return b.postTime.localeCompare(a.postTime);
+            }
+            // 处理 postTime 为空的情况
+            return 0;
         });
+
         this.setState({posters: posters});
     }
     render = () => {

@@ -23,7 +23,7 @@ public interface ActivityDao {
      ActivityDetails getActivityById(Long activityId);
 
      List<ActivityDetails> searchActivity(String keyword);
-    void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments,String photo);
+    void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments,String photo, double lng, double lat);
 
     void addReleaseRecord(Integer userId, Integer num);
 

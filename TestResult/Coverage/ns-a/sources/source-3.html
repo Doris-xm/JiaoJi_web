@@ -1,0 +1,101 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ActivityDao</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.jiaoji_app_back.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: ActivityDao (com.example.jiaoji_app_back.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ActivityDao</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.jiaoji_app_back.dao;
+&nbsp;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityDetails;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityResponse;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityRelease;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivitySignup;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface ActivityDao {
+&nbsp;
+&nbsp;     List&lt;ActivityDetails&gt; getAllActivities();
+&nbsp;
+&nbsp;     List&lt;ActivityResponse&gt; getMyActivities(int userId) ;
+&nbsp;
+&nbsp;     List&lt;ActivityDetails&gt; getPassedActivity();
+&nbsp;
+&nbsp;      ActivityDetails changeStatus(Long id, Integer status, String comments);
+&nbsp;
+&nbsp;      void updateActivityRemainingNumber(Long activityId,Long remainingNumber);
+&nbsp;
+&nbsp;     ActivityDetails getActivityById(Long activityId);
+&nbsp;
+&nbsp;     List&lt;ActivityDetails&gt; searchActivity(String keyword);
+&nbsp;    void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments,String photo, double lng, double lat);
+&nbsp;
+&nbsp;    void addReleaseRecord(Integer userId, Integer num);
+&nbsp;
+&nbsp;    Long getActivityCount();
+&nbsp;
+&nbsp;    List&lt;ActivityRelease&gt; findMyRelease(Integer userId);
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-18 12:10</div>
+</div>
+</body>
+</html>

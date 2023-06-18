@@ -14,7 +14,7 @@ import {Link} from "react-router-dom";
 const MomentCard: React.FC = ({moment}) => {
     const [loading, setLoading] = useState(false);
     const [liked, setLiked] = useState(false);
-    if( !moment.avatar.includes("http")){
+    if(moment.avatar===null || moment.avatar===undefined|| !moment.avatar.includes("http")){
         moment.avatar = "../../Data/"+moment.avatar;
         console.log(moment.avatar)
     }

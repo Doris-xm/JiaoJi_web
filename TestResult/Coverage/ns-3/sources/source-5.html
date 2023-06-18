@@ -1,0 +1,228 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SignUpController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.jiaoji_app_back.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: SignUpController (com.example.jiaoji_app_back.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SignUpController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55.9%
+  </span>
+  <span class="absValue">
+    (19/34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//package com.example.jiaoji_app_back.controller;
+&nbsp;//
+&nbsp;//import com.example.jiaoji_app_back.constant.Constant;
+&nbsp;//import com.example.jiaoji_app_back.entity.UserAuth;
+&nbsp;//import com.example.jiaoji_app_back.service.SignUpService;
+&nbsp;//import com.example.jiaoji_app_back.utils.msgutils.Msg;
+&nbsp;//import com.example.jiaoji_app_back.utils.msgutils.MsgCode;
+&nbsp;//import com.example.jiaoji_app_back.utils.msgutils.MsgUtil;
+&nbsp;//import com.example.jiaoji_app_back.utils.sessionutils.SessionUtil;
+&nbsp;//import net.sf.json.JSONObject;
+&nbsp;//import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;//import org.springframework.http.HttpStatus;
+&nbsp;//import org.springframework.web.bind.annotation.*;
+&nbsp;//
+&nbsp;//import java.io.File;
+&nbsp;//import java.util.List;
+&nbsp;//import java.util.Map;
+&nbsp;//
+&nbsp;//@RestController
+&nbsp;//@CrossOrigin(origins = &quot;http://localhost:3000&quot;)
+&nbsp;//public class SignUpController {
+&nbsp;//
+&nbsp;//    @Autowired
+&nbsp;//    private SignUpService signUpService;
+&nbsp;//    @PostMapping
+&nbsp;//    @RequestMapping(&quot;/signup&quot;)
+&nbsp;//    @ResponseStatus(HttpStatus.OK)
+&nbsp;//    public Msg login(@RequestBody Map&lt;String, String&gt; params){
+&nbsp;//        String userId = params.get(Constant.USER_ID);
+&nbsp;//        String actId = params.get(Constant.ACT_ID);
+&nbsp;//
+&nbsp;//        if(signUpService.SignUp(Integer.parseInt(userId),Integer.parseInt(actId))){
+&nbsp;//            return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.SIGNUP_SUCCESS_MSG);
+&nbsp;//        }else{
+&nbsp;//            return MsgUtil.makeMsg(MsgCode.ERROR);
+&nbsp;//        }
+&nbsp;//    }
+&nbsp;//}
+&nbsp;package com.example.jiaoji_app_back.controller;
+&nbsp;
+&nbsp;import com.example.jiaoji_app_back.constant.Constant;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityDetails;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivitySignup;
+&nbsp;import com.example.jiaoji_app_back.entity.User;
+&nbsp;import com.example.jiaoji_app_back.service.ActivityService;
+&nbsp;import com.example.jiaoji_app_back.service.SignUpService;
+&nbsp;import com.example.jiaoji_app_back.service.UserService;
+&nbsp;import com.example.jiaoji_app_back.utils.msgutils.Message;
+&nbsp;import com.example.jiaoji_app_back.utils.msgutils.Msg;
+&nbsp;import com.example.jiaoji_app_back.utils.msgutils.MsgCode;
+&nbsp;import com.example.jiaoji_app_back.utils.msgutils.MsgUtil;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@CrossOrigin(origins = &quot;http://localhost:3000&quot;)
+<b class="fc">&nbsp;public class SignUpController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private SignUpService signUpService;
+&nbsp;    @Autowired
+&nbsp;    private UserService userService;
+&nbsp;    @Autowired
+&nbsp;    private ActivityService activityService;
+&nbsp;    @PostMapping(&quot;/signup&quot;)
+&nbsp;    public Message signup(@RequestBody Map&lt;String,Object&gt; params){
+<b class="fc">&nbsp;        Integer userId = Integer.valueOf(params.get(&quot;userId&quot;).toString());</b>
+<b class="fc">&nbsp;        Integer actId = Integer.valueOf(params.get(&quot;actId&quot;).toString());</b>
+<b class="fc">&nbsp;        String coll = null;</b>
+<b class="fc">&nbsp;        Integer grade = null;</b>
+<b class="fc">&nbsp;        String club = null;</b>
+<b class="fc">&nbsp;        User user = userService.getUserByUserId(userId);</b>
+<b class="fc">&nbsp;        ActivityDetails activity = activityService.getActivityById(actId.longValue());</b>
+<b class="fc">&nbsp;        if(user!=null){</b>
+<b class="fc">&nbsp;            coll = user.getCollege();</b>
+<b class="fc">&nbsp;            grade = user.getGrade();</b>
+<b class="fc">&nbsp;            club = user.getClub();</b>
+&nbsp;
+&nbsp;        }
+<b class="fc">&nbsp;        if(activity.getCollege() !=null){</b>
+<b class="fc">&nbsp;            if(!Objects.equals(coll, activity.getCollege())){</b>
+<b class="fc">&nbsp;                return new Message(&quot;学院不符合要求&quot;,false,null);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if(activity.getClub() !=null){</b>
+<b class="nc">&nbsp;            if(!Objects.equals(club, activity.getClub())){</b>
+<b class="nc">&nbsp;                return new Message(&quot;社团不符合要求&quot;,false,null);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if(activity.getGrade() !=-1){</b>
+<b class="nc">&nbsp;            if(!Objects.equals(grade, activity.getGrade())){</b>
+<b class="nc">&nbsp;                return new Message(&quot;年级不符合要求&quot;,false,null);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        if(signUpService.SignUp(userId,actId)){</b>
+<b class="fc">&nbsp;            return new Message(&quot;报名成功&quot;,true,null);</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            return new Message(&quot;请勿重复报名&quot;,false,null);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    @PostMapping(&quot;/getSignedUser&quot;)
+&nbsp;    public Message getSignedUser(@RequestBody Map&lt;String,Object&gt; body){
+<b class="nc">&nbsp;        Integer actId = Integer.valueOf(body.get(&quot;actId&quot;).toString());</b>
+<b class="nc">&nbsp;        System.out.println(actId);</b>
+<b class="nc">&nbsp;        List&lt;ActivitySignup&gt; userList = signUpService.getSignedUser(actId);</b>
+<b class="nc">&nbsp;        List&lt;User&gt; users = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        if(userList!=null){</b>
+&nbsp;            //遍历
+<b class="nc">&nbsp;            for (ActivitySignup activitySignup : userList) {</b>
+&nbsp;                // 对每个ActivitySignup对象执行操作
+<b class="nc">&nbsp;                users.add(userService.getUserByUserId(activitySignup.getUserId()));</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println(users);</b>
+<b class="nc">&nbsp;        return new Message(&quot;获取报名学生信息成功&quot;,true,users);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-18 12:10</div>
+</div>
+</body>
+</html>

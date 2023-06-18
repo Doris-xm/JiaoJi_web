@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Form, Input, Button, Row, Col, Modal, message} from "antd";
 import { Card as AntCard } from "antd";
 import "../css/SignUp.css";
 import {getUser} from "../Services/UserService";
 import {postSignupData} from "../Services/SignupService";
+import MapSearch from "./Map/MapSearch";
 
 const layout = {
     labelCol: {
@@ -25,20 +26,23 @@ const tailLayout = {
 
 const ReleaseForm = ({ ActivityId }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [address, setAddress] = useState({name:"尚未选择地点!",lng:0,lat:0});
+    const locationRef = useRef(null);
     const handleConfirmSignUp = (formData) => {
-        console.log(ActivityId);
-        const { name, content, location, signupTime, activityTime, departments, college, grade, club, recruitmentNumber, organizer, suScore, laborHour } = formData;
-
+        console.log(formData);
+        const { name, content, signupTime, activityTime, departments, college, grade, club, recruitmentNumber, organizer, suScore, laborHour } = formData;
         // 判断是否有输入报名年级限制，学院限制，社团限制
-        const gradeRestriction = grade !== "" ? grade : null;
-        const collegeRestriction = college !== "" ? college : -1;
-        const clubRestriction = club !== "" ? club : null;
+        const gradeRestriction = grade !== undefined ? grade : -1;
+        const collegeRestriction = college !== undefined ? college : null;
+        const clubRestriction = club !== undefined ? club : null;
 
         const requestData = {
-            userId: 0,
+            userId: getUser().userId,
             name,
             content,
-            location,
+            location: address.name,
+            lng: address.lng,
+            lat: address.lat,
             signupTime,
             activityTime,
             departments,
@@ -65,15 +69,16 @@ const ReleaseForm = ({ ActivityId }) => {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.ok) {
+                if (data.status >= 0) {
                     // 处理报名成功的逻辑
                     console.log(data.msg);
                     console.log(data.data);
-                    alert("活动发布成功！")
+                    message.success("活动发布成功！")
+                    window.location.reload();
                 } else {
                     // 处理报名失败的逻辑
                     console.error(data.msg);
-                    alert(data.msg)
+                    message.error(data.msg)
                 }
             })
             .catch(error => {
@@ -82,6 +87,16 @@ const ReleaseForm = ({ ActivityId }) => {
             });
 
     };
+
+    const selectAddress = (location) => {
+        setAddress(location);
+        // console.log(address);
+        // console.log(locationRef.current);
+    };
+    useEffect(() => {
+        console.log(address);
+    },[address]);
+
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -108,9 +123,8 @@ const ReleaseForm = ({ ActivityId }) => {
     return (
         <div className="card-container">
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                <Button type="primary"  onClick={showModal}>发布活动</Button>
-                <Modal title="活动发布" open={isModalOpen} footer={null} onOk={handleOk}  onCancel={handleCancel}>
-
+                <Button type="primary"  onClick={showModal} style={{height:"70px",width:"250px", fontSize:"22pt", margin:"10px", padding:"10px", borderRadius:"35px"}}> + 发布活动 </Button>
+                <Modal title="活动发布" open={isModalOpen} footer={null} onOk={handleOk}  onCancel={handleCancel} style={{minWidth:"800px"}}>
                     <div className="ant-card-body">
                         <Form {...layout}  name="basic" onFinish={handleConfirmSignUp}>
 
@@ -138,18 +152,12 @@ const ReleaseForm = ({ ActivityId }) => {
                             >
                                 <Input />
                             </Form.Item>
-                            <Form.Item
-                                label="活动地点"
-                                name="location"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "请输入活动地点！",
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
+                            <Row>
+                                <Col offset={7} span={17}>
+                                    <MapSearch selectAddress={selectAddress}/>
+                                    {address.name=="尚未选择地点!"?(<p>尚未选择地点!</p>):(<div><p>已选择地点:{address.name}</p><p>经度:{address.lng}   纬度:{address.lat}</p></div>)}
+                                </Col>
+                            </Row>
 
                             <Form.Item
                                 label="可报名时段"
@@ -188,18 +196,6 @@ const ReleaseForm = ({ ActivityId }) => {
                             >
                                 <Input />
                             </Form.Item>
-                            {/*<Form.Item*/}
-                            {/*    label="活动报名限制"*/}
-                            {/*    name="signupRestriction"*/}
-                            {/*    rules={[*/}
-                            {/*        {*/}
-                            {/*            required: true,*/}
-                            {/*            message: "请输入活动报名限制！",*/}
-                            {/*        },*/}
-                            {/*    ]}*/}
-                            {/*>*/}
-                            {/*    <Input />*/}
-                            {/*</Form.Item>*/}
                             <Form.Item
                                 label="报名学院限制"
                                 name="college"

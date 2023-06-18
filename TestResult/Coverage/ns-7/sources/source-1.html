@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ActivitySeviceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.jiaoji_app_back.serviceimpl</a>
+</div>
+
+<h1>Coverage Summary for Class: ActivitySeviceImpl (com.example.jiaoji_app_back.serviceimpl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ActivitySeviceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (11/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.jiaoji_app_back.serviceimpl;
+&nbsp;
+&nbsp;import com.example.jiaoji_app_back.dao.ActivityDao;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityDetails;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityRelease;
+&nbsp;import com.example.jiaoji_app_back.entity.ActivityResponse;
+&nbsp;import com.example.jiaoji_app_back.utils.msgutils.Message;
+&nbsp;import com.example.jiaoji_app_back.service.ActivityService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class ActivitySeviceImpl implements ActivityService {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ActivityDao activityDao;
+&nbsp;    @Override
+&nbsp;    public List&lt;ActivityDetails&gt; getActivityList() {
+<b class="fc">&nbsp;        return activityDao.getAllActivities();</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public List&lt;ActivityResponse&gt; getMyActivityList(int userId) {
+<b class="fc">&nbsp;       return activityDao.getMyActivities(userId);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public  List&lt;ActivityDetails&gt; getPassedActivity(){
+<b class="fc">&nbsp;      return activityDao.getPassedActivity();</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Message changeStatus(Long id, Integer status, String comments){
+<b class="fc">&nbsp;        ActivityDetails activityDetails= activityDao.changeStatus(id, status,comments);</b>
+<b class="fc">&nbsp;        if(activityDetails!= null){</b>
+<b class="fc">&nbsp;            return new Message(&quot;改变活动状态成功&quot;,true,activityDetails);</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            return new Message(&quot;改变活动状态失败&quot;,false,null);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Message updateActivityRemainingNumber(Long l,Long remainingNumber){
+<b class="nc">&nbsp;        activityDao.updateActivityRemainingNumber(l,remainingNumber);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new Message(&quot;报名成功&quot;,true,null);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public ActivityDetails getActivityById(Long activityId){
+<b class="fc">&nbsp;        return activityDao.getActivityById(activityId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;ActivityDetails&gt; searchActivity(String keyword){
+<b class="fc">&nbsp;        return activityDao.searchActivity(keyword);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Message release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo, double lng, double lat){
+<b class="fc">&nbsp;        activityDao.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club</b>
+&nbsp;                ,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo, lng, lat);
+&nbsp;
+<b class="fc">&nbsp;        return new Message(&quot;发布成功&quot;,true,null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addReleaseRecord(Integer userId,Integer num) {
+<b class="fc">&nbsp;        activityDao.addReleaseRecord(userId,num);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Long getActivityCount(){
+<b class="fc">&nbsp;        return activityDao.getActivityCount();</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public Message findMyRelease(Integer userId){
+<b class="fc">&nbsp;        List&lt;ActivityRelease&gt; activityDetailsList = activityDao.findMyRelease(userId);</b>
+<b class="fc">&nbsp;        if(activityDetailsList!= null){</b>
+<b class="fc">&nbsp;            return new Message(&quot;获取我发布的活动成功&quot;,true,activityDetailsList);</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            return new Message(&quot;获取我发布的活动&quot;,false,null);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-18 12:10</div>
+</div>
+</body>
+</html>

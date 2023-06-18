@@ -84,7 +84,7 @@ public class ActivityDaoImpl implements ActivityDao {
         return activityDetailsRepository.findAllByNameContainingOrContentContainingOrCollegeContainingOrClubContainingAndStatusGreaterThan(keyword,keyword,keyword,keyword,ActivityDetails.Status.TODO.ordinal());
     }
     @Override
-    public void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo){
+    public void release(String name, String content, String location, String signupTime, String activityTime, String departments, String signupRestriction, String college, Integer grade, String club, Long recruitmentNumber, Long remainingNumber, String organizer, Long suScore, Long laborHour, Integer status, String comments, String photo, double lng, double lat){
         ActivityDetails activityDetails = new ActivityDetails();
         activityDetails.setName(name);
         activityDetails.setContent(content);
@@ -104,7 +104,10 @@ public class ActivityDaoImpl implements ActivityDao {
         activityDetails.setStatus(status);
         activityDetails.setComments(comments);
         activityDetails.setPhoto(photo);
+        activityDetails.setLng(lng);
+        activityDetails.setLat(lat);
         activityDetailsRepository.save(activityDetails);
+        System.out.println(activityDetails.getId());
     }
     @Override
     public void  addReleaseRecord(Integer userId, Integer num){

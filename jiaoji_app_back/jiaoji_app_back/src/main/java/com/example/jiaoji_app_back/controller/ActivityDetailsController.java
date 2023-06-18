@@ -8,6 +8,9 @@ import com.example.jiaoji_app_back.entity.ActivityResponse;
 import com.example.jiaoji_app_back.utils.msgutils.Message;
 import com.example.jiaoji_app_back.repository.ActivityDetailsRepository;
 import com.example.jiaoji_app_back.service.ActivityService;
+import com.example.jiaoji_app_back.utils.msgutils.Msg;
+import com.example.jiaoji_app_back.utils.msgutils.MsgCode;
+import com.example.jiaoji_app_back.utils.msgutils.MsgUtil;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +75,8 @@ public class ActivityDetailsController {
     }
 
     @PostMapping("/release")
-    public Message release(@RequestBody Map<String,Object> body){
+    public Msg release(@RequestBody Map<String,Object> body){
+        System.out.println(body);
         long userId = Long.parseLong(body.get("userId").toString());
         String name = (String) body.get("name");
         String content = (String) body.get("content");
@@ -82,24 +86,30 @@ public class ActivityDetailsController {
         String departments = (String) body.get("departments");
         String signupRestriction = (String) body.get("signupRestriction");
         String college = (String) body.get("college");
-        Integer grade = Integer.parseInt((String) body.get("grade"));
+//        System.out.println(body.get("grade"));
+        Integer grade = Integer.parseInt (body.get("grade").toString());
         String club = (String) body.get("club");
         Long recruitmentNumber = Long.valueOf(body.get("recruitmentNumber").toString());
         Long remainingNumber = recruitmentNumber;
         String organizer = (String) body.get("organizer");
         Long suScore = Long.valueOf(body.get("suScore").toString());
         Long laborHour = Long.valueOf(body.get("laborHour").toString());
-        Integer status = ActivityDetails.Status.TODO.ordinal();
+        Integer status = ActivityDetails.Status.NOT_RELEASE.ordinal();
+        double lng = (double)body.get("lng");
+        double lat = (double)body.get("lat");
         String comments = null;
         String photo = "https://th.bing.com/th/id/R.785580b0aa9cce1c7e016db5ee2e078e?rik=ebpuQj03uKxGQg&riu=http%3a%2f%2fphotos.tuchong.com%2f255820%2ff%2f2852945.jpg&ehk=8sZ0LLnnaIXhdwT1M5Zk2xrfIMFcE%2bV45Nc1839Gj7Y%3d&risl=&pid=ImgRaw&r=0";
 
         //获取activity_details表行数
-
-
-        Message message = activityService.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo);
+        Message message = activityService.release(name,content,location,signupTime,activityTime,departments,signupRestriction,college,grade,club,recruitmentNumber,remainingNumber,organizer,suScore,laborHour,status,comments,photo,lng, lat);
         Long rowCount = activityService.getActivityCount();
         activityService.addReleaseRecord(Math.toIntExact(userId), Math.toIntExact(rowCount));
-        return message;
+        if(message.getOk()) {
+            return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.RELEASE_SUCCESS_MSG);
+        }
+        else {
+            return MsgUtil.makeMsg(MsgCode.ERROR, MsgUtil.RELEASE_FAIL_MSG);
+        }
     }
         @RequestMapping("/my_release_activities")
         public Message findMyRelease(@RequestParam("userId") Integer userId){

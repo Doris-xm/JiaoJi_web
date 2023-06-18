@@ -31,9 +31,10 @@ class ManageView extends React.Component {
     render() {
         return (
             <div>
+                <h1>待审核</h1>
                 <List
                     grid={{ gutter: 16, column: 1 }}
-                    dataSource={this.state.activities.filter((activity) => activity.status === STATUS.TODO)}
+                    dataSource={this.state.activities.filter((activity) => activity.status === STATUS.NOT_RELEASE)}
                     renderItem={(activity) => (
                         <List.Item>
                             <AdminActivity activity={activity} />

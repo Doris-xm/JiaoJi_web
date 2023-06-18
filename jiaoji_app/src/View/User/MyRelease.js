@@ -8,7 +8,7 @@ import ReleaseForm from "../../Component/ReleaseForm";
 
 const default_url = "https://th.bing.com/th/id/R.785580b0aa9cce1c7e016db5ee2e078e?rik=ebpuQj03uKxGQg&riu=http%3a%2f%2fphotos.tuchong.com%2f255820%2ff%2f2852945.jpg&ehk=8sZ0LLnnaIXhdwT1M5Zk2xrfIMFcE%2bV45Nc1839Gj7Y%3d&risl=&pid=ImgRaw&r=0";
 
-const states = [" ", "已报名", "已录取", "很遗憾，你落选了", "已参加", "已评价"]; // state ENUM('Signed','Passed','Rejected','Participated','Commented'),
+const states = ["被驳回","审核中", "已发布", "已发布", "已发布", "已发布", "已发布"]; // state ENUM('Signed','Passed','Rejected','Participated','Commented'),
 
 const MyRelease = () => {
     const [myActivities, setMyActivities] = useState([]);
@@ -105,13 +105,13 @@ const MyRelease = () => {
                             >
                                 <Card.Meta description={activity.description} />
                                 活动时间：{activity.activityTime}
+                                活动时间：{activity.activityTime}
                                 <br />
                                 <br />
-                                {states[activity.state]}
+                                状态： {states[activity.status]}
                                 <br />
                                 <br />
-                                {activity.state === 4 && <Button>评价活动</Button>}
-                                {activity.state === 5 && <Button>修改评价</Button>}
+                                {activity.status === 0 && <text>审核意见：{activity.comments}</text>}
                             </Card>
                         </Link>
                         <Button onClick={() => handleGetUser(activity.id)}>查看报名学生信息</Button>
