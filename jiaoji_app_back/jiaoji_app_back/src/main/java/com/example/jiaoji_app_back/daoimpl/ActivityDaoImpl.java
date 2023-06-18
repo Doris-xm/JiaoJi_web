@@ -51,7 +51,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public  List<ActivityDetails> getPassedActivity(){
-        return activityDetailsRepository.findAllByStatusGreaterThanEqualAndStatusLessThan(ActivityDetails.Status.PASS.ordinal(), ActivityDetails.Status.OVER.ordinal());
+        return activityDetailsRepository.findAllByStatusGreaterThanEqualAndStatusLessThan(ActivityDetails.Status.TODO.ordinal(), ActivityDetails.Status.OVER.ordinal());
     }
     @Override
     public  ActivityDetails changeStatus(Long id, Integer status, String comments){

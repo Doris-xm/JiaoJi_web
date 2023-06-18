@@ -64,7 +64,7 @@ class ActivityList  extends React.Component {
                                 <Card
                                     cover={<img alt={default_url}
                                                 src={activity.activityDetails.photo ? activity.activityDetails.photo : default_url}
-                                                style={{width: "95%", margin: "0 auto"}}/>}
+                                                style={{width: "95%", margin: "0 auto", aspectRatio:"3/2"}}/>}
                                     title={activity.activityDetails.name}
 
                                 >
@@ -80,7 +80,7 @@ class ActivityList  extends React.Component {
                     <Search
                         placeholder="请输入搜索关键词..."
                         allowClear
-                        enterButton="Search"
+                        enterButton="搜索"
                         size="large"
                         onSearch={this.handleSearch}
                         style={{ width:"600px", height: "60px", margin: "auto" }}

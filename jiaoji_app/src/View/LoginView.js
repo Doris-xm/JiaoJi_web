@@ -73,7 +73,7 @@ const LoginView = () => {
                   style={{ width: "100%" }}
                   className="login-btn"
               >
-                登 陆
+                登 录
               </Button>
             </Form.Item>
             <Form.Item>
@@ -84,12 +84,12 @@ const LoginView = () => {
                   style={{ width: "100%" }}
                   className="login-btn"
               >
-                游 客 登 陆
+                游 客 登 录
               </Button>
             </Form.Item>
             <Form.Item>
               <a href="https://jaccount.sjtu.edu.cn/oauth2/authorize?response_type=code&scope=profile&client_id=ov3SLrO4HyZSELxcHiqS&redirect_uri=http://localhost:3000" >
-                第三方登陆
+                第三方登录
               </a>{"  "}
                | <a href="#" onClick={showCreateUserModal}>新注册用户</a>
             </Form.Item>
