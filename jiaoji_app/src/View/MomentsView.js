@@ -88,7 +88,7 @@ class MomentsView  extends React.Component {
             }}>
                 <Header style={{
                     padding: 10,
-                    background: "rgba(255,255,255,0.5)",
+                    background: "rgba(255,255,255,0.9)",
                     width: "60%",
                     display: "flex",
                     justifyContent: "space-between",
@@ -103,12 +103,15 @@ class MomentsView  extends React.Component {
                         display: "flex",
                         flex:1,
                         alignItems: "center",
+                        background:"rgba(255,255,255,0.5)",
+                        width:"60%"
                     }}>
                     <div style={{
                         width: "100%",
                         alignItems: "center",
                     }}>
                         {this.state.posters.map((moment) => (
+                            console.log("moment",moment),
                             <MomentCard moment={moment} />
                         ))}
                     </div>

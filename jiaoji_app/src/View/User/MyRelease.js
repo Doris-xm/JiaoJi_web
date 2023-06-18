@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getMyActivities, getMyReleaseActivities, getActivityByID } from "../../Services/ActivitySevice";
-import { Button, Card, List, message, Modal, Table } from "antd";
+import {Button, Card, Drawer, List, message, Modal, Table} from "antd";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../Services/UserService";
 import { getSignedUser } from "../../Services/ReleaseService";
@@ -45,43 +45,48 @@ const MyRelease = () => {
         });
     };
 
+    const onClose = () => {
+        setShowTable(false);
+    };
+
     const columns = [
         {
-            title: "userId",
+            title: "用户ID",
             dataIndex: "userId",
             key: "userId",
         },
         {
-            title: "username",
+            title: "用户名",
             dataIndex: "username",
             key: "username",
         },
         {
-            title: "studentId",
+            title: "学号",
             dataIndex: "studentId",
             key: "studentId",
         },
         {
-            title: "college",
+            title: "学院",
             dataIndex: "college",
             key: "college",
         },
         {
-            title: "grade",
+            title: "年级",
             dataIndex: "grade",
             key: "grade",
         },
         {
-            title: "club",
+            title: "社团",
             dataIndex: "club",
             key: "club",
         },
         {
-            title: "mail",
+            title: "邮箱",
             dataIndex: "mail",
             key: "mail",
         },
     ];
+
 
     return (
         <div>
@@ -114,17 +119,24 @@ const MyRelease = () => {
                                 {activity.status === 0 && <text>审核意见：{activity.comments}</text>}
                             </Card>
                         </Link>
-                        <Button onClick={() => handleGetUser(activity.id)}>查看报名学生信息</Button>
+                        <Button onClick={() => handleGetUser(activity.id)}
+                                style={{margin:"18px 10px 10px 95px"}}>报名学生信息</Button>
                     </List.Item>
                 )}
             />
-            {showTable && (
+            <Drawer
+                title="报名学生信息"
+                placement="bottom"
+                closable={false}
+                open={showTable}
+                onClose={onClose}
+            >
                 <Table
                     dataSource={tableData}
                     columns={columns}
                     // Add other table props and styling as needed
                 />
-            )}
+            </Drawer>
         </div>
     );
 };

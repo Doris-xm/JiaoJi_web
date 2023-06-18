@@ -36,7 +36,7 @@ class MyActivity  extends React.Component {
                                     <Card
                                         cover={<img alt={default_url}
                                                     src={activity.activityDetails.photo? activity.activityDetails.photo: default_url}
-                                                    style={{width: "95%", margin: "0 auto"}}/>}
+                                                    style={{width: "95%", margin: "0 auto", aspectRatio:"3/2"}}/>}
                                         title={activity.activityDetails.name}
 
                                     >

@@ -68,7 +68,7 @@ const getMonthData = (value) => {
     if (info.type === 'month') return monthCellRender(current);
     return info.originNode;
   };
-  return <Calendar cellRender={cellRender} />;
+  return <Calendar cellRender={cellRender} style={{padding:"20px"}}/>;
 };
 export default DateReminder;
 
